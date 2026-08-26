@@ -79,10 +79,17 @@ nav.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:-4px;
 .panel[hidden]{display:none}
 
 /* ---------- section headers ---------- */
-.sec{display:flex;align-items:baseline;gap:11px;margin:34px 0 14px}
+.sec{display:flex;align-items:baseline;gap:11px;margin:34px 0 14px;
+  background:var(--blue-wash);border-left:4px solid var(--blue);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;padding:10px 15px;flex-wrap:wrap}
 .sec:first-child{margin-top:0}
-.sec h2{font-size:17px;font-weight:600}
-.sec p{margin:0;font-size:12.5px;color:var(--ink-3)}
+.sec h2{font-size:16px;font-weight:600}
+.sec p{margin:0;font-size:12.5px;color:var(--ink-2)}
+.sec.frente{margin-top:40px;padding:13px 16px}
+.sec.frente h2{font-size:19px}
+.sec.o{background:var(--orange-soft);border-left-color:var(--orange)}
+.sec.p{background:var(--blue-soft);border-left-color:var(--blue-2)}
+.sec.g{background:var(--green-soft);border-left-color:var(--green)}
 .hero{margin-bottom:24px}
 .hero h1{font-size:clamp(25px,4vw,36px);font-weight:700;line-height:1.1;margin-bottom:9px}
 .hero p{margin:0;color:var(--ink-2);max-width:66ch;font-size:15px}
@@ -96,6 +103,8 @@ nav.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:-4px;
 .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue)}
 .kpi.o::before{background:var(--orange)} .kpi.g::before{background:var(--green)}
 .kpi.r::before{background:var(--red)} .kpi.p::before{background:var(--purple)}
+.kpi .lbl .q{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:var(--line);color:var(--ink-3);font-size:9px;font-weight:700;margin-left:5px;cursor:help;vertical-align:1px}
+.kpi .lbl .q:hover{background:var(--blue);color:#fff}
 .kpi .lbl{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);
   font-weight:600;margin-bottom:7px}
 .kpi .val{font-family:"JetBrains Mono",monospace;font-size:27px;font-weight:700;
@@ -350,12 +359,12 @@ footer p b{color:var(--ink-2)}
 
   <div class="sec"><h2>Campanhas do Meta Ads</h2><p>acumulado de jun a ago de 2026</p></div>
   <div class="card"><div class="scroll"><table>
-    <thead><tr><th>Campanha</th><th>Investimento</th><th>Share</th><th>Cliques</th><th>CTR</th><th>Leads</th><th>US$/lead</th></tr></thead>
+    <thead><tr><th>Campanha</th><th>Investimento</th><th>Share</th><th>Cliques</th><th>CTR</th><th>Leads</th><th>R$/lead</th></tr></thead>
     <tbody id="md-camp"></tbody>
   </table></div></div>
 
   <div class="pending">
-    <b>Rodízio de conectores.</b> O plano Basic do Windsor.ai comporta duas fontes por vez, então Meta, Google e GA4 foram puxados em turnos. Todos os três estão gravados dia a dia de 04/06 a 25/08. Para atualizar daqui em diante, é preciso repetir o rodízio ou subir de plano.
+    <b>Rodízio de conectores.</b> O plano Basic do Windsor.ai comporta duas fontes por vez, então Meta, Google e GA4 foram puxados em turnos. Os três estão gravados dia a dia: Meta e GA4 de 01/06 a 25/08, Google de 04/06 a 25/08. Para atualizar daqui em diante é preciso repetir o rodízio ou subir de plano.
   </div>
 
   <div class="sec"><h2>Eficiência por plataforma</h2></div>
@@ -382,7 +391,7 @@ footer p b{color:var(--ink-2)}
     <p>O número que o CRM não tem: quantas pessoas realmente abrem conversa. A conta do Freshchat é compartilhada com outras operações do grupo — tudo aqui já está filtrado pelos quatro canais da KwikLedgers.</p>
   </div>
 
-    <div class="filter" data-scope="fc" data-gran="mes">
+    <div class="filter" data-scope="fc">
     <label for="fc-de">Período</label>
     <input type="date" id="fc-de" aria-label="Data inicial">
     <span style="color:var(--ink-3)">→</span>
@@ -396,8 +405,8 @@ footer p b{color:var(--ink-2)}
   <div class="sec"><h2>Volume e destino das conversas</h2></div>
   <div class="grid2">
     <div class="card">
-      <h4 style="font-size:13px;margin-bottom:4px">Conversas criadas por mês</h4>
-      <p class="note-line" style="margin:0 0 6px">Nos quatro canais da KwikLedgers</p>
+      <h4 style="font-size:13px;margin-bottom:4px">Conversas criadas · <span id="fc-gran">por dia</span></h4>
+      <p class="note-line" style="margin:0 0 6px">Nos quatro canais da KwikLedgers · junho a agosto de 2026</p>
       <div class="cols" id="fc-cols"></div>
       <div class="collbl" id="fc-cols-lbl"></div>
     </div>
@@ -458,7 +467,7 @@ footer p b{color:var(--ink-2)}
   <div class="hero">
     <div class="eyebrow"><span class="rule"></span><span>Semana de <span id="sm-per">—</span></span></div>
     <h1>Performance de Marketing</h1>
-    <p>Abertura de Empresa · Combo Contabilidade + Abertura · Holding · USA. Semanas de quinta a quarta, comparadas com a anterior.</p>
+    <p>Cada frente com a sua mídia, as suas peças e o seu atendimento. Semanas de quinta a quarta, comparadas com a anterior.</p>
   </div>
 
   <div class="filter">
@@ -469,11 +478,14 @@ footer p b{color:var(--ink-2)}
 
   <div class="kpis" id="sm-kpis"></div>
 
+  <div class="sec"><h2>Panorama executivo</h2><p>as 4 frentes · <span id="sm-soma"></span></p></div>
+  <div class="grid2" id="sm-cards"></div>
+
   <div class="sec"><h2>Evolução semanal</h2><p>a barra laranja é a semana selecionada</p></div>
   <div class="grid2">
     <div class="card">
-      <h4 style="font-size:13px;margin-bottom:4px">Leads no Meta Ads</h4>
-      <p class="note-line" style="margin:0 0 6px">por semana, quinta a quarta</p>
+      <h4 style="font-size:13px;margin-bottom:4px">Conversões no Meta Ads</h4>
+      <p class="note-line" style="margin:0 0 6px">evento Lead do pixel, por semana</p>
       <div class="cols" id="sm-cols"></div>
       <div class="collbl" id="sm-cols-lbl"></div>
     </div>
@@ -485,182 +497,17 @@ footer p b{color:var(--ink-2)}
     </div>
   </div>
 
-  <div class="sec"><h2>Panorama executivo</h2><p>as 4 iniciativas · números fixos da semana de 13–19/08</p></div>
-  <p class="note-line" style="margin:-6px 0 12px">As seções abaixo desta linha vêm do relatório v4 e não acompanham o seletor: incluem Google Ads, leads de atendimento e a jornada de CRM, que não chegam por API. Os blocos acima — investimento, leads, sessões e campanhas do Meta — são ao vivo e mudam com a semana escolhida.</p>
-  <div class="grid2" id="sm-cards"></div>
-
-  <div class="sec"><h2>Abertura de Empresa</h2><p><span class="tag b">Juan · mídia</span></p></div>
-  <div class="grid2">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Meta Ads</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th><th>Custo/conv.</th></tr></thead>
-        <tbody>
-          <tr><td>Checkout</td><td>R$ 379</td><td>274</td><td>2,17%</td><td>4</td><td>R$ 94,84</td></tr>
-          <tr><td>Calculadora</td><td>R$ 692</td><td>587</td><td>1,75%</td><td class="lo">100</td><td class="lo">R$ 6,92</td></tr>
-          <tr><td>Remarketing Checkout</td><td>R$ 69</td><td>41</td><td>2,33%</td><td>—</td><td>—</td></tr>
-          <tr class="tot"><td>Total</td><td>R$ 1.141</td><td>902</td><td>1,88%</td><td>120</td><td>R$ 9,51</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Google Ads</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th><th>Custo/conv.</th></tr></thead>
-        <tbody>
-          <tr><td>Abertura de Empresa: geral</td><td>R$ 1.871</td><td>138</td><td>4,79%</td><td>7</td><td class="hi">R$ 267,25</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note-line">O Google levou 62% do investimento da iniciativa e trouxe 7 das 127 conversões.</p>
-    </div>
-  </div>
-
-  <div class="grid2" style="margin-top:14px">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Site <span class="tag b">Juan</span></h4>
-      <div class="bars" id="sm-paginas"></div>
-    </div>
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Atendimento <span class="tag o">Gabi</span></h4>
-      <div class="bars" id="sm-tema"></div>
-      <p class="note-line">7 leads no período. Origem: Abertura de Empresa (5) e Modelo de Abertura (2).</p>
-    </div>
-  </div>
-
-  <div class="sec"><h2>CRM — jornada</h2><p><span class="tag p">Fernanda</span></p></div>
-  <div class="card"><div class="scroll"><table>
-    <thead><tr><th>Fase</th><th>Enviados</th><th>Aberturas</th><th>Cliques</th></tr></thead>
-    <tbody>
-      <tr><td>Lead Qualificado — WhatsApp 1</td><td>1</td><td>—</td><td>—</td></tr>
-      <tr><td>Lead Qualificado — WhatsApp 2</td><td>1</td><td>—</td><td>—</td></tr>
-      <tr><td>Lead Qualificado — E-mail</td><td>1</td><td class="hi">0%</td><td class="hi">0%</td></tr>
-      <tr><td>Aguardando Checkout — WhatsApp 1</td><td>2</td><td>—</td><td>—</td></tr>
-      <tr><td>Aguardando Checkout — WhatsApp 2</td><td>2</td><td>—</td><td>—</td></tr>
-      <tr><td>Aguardando Checkout — E-mail</td><td>0</td><td>—</td><td>—</td></tr>
-      <tr><td>Leads Modelo de Empresa — WhatsApp 1</td><td>31</td><td>—</td><td>—</td></tr>
-      <tr><td>Leads Modelo de Empresa — WhatsApp 2</td><td>31</td><td>—</td><td>—</td></tr>
-      <tr><td>Cliente deu OK da recomendação — WhatsApp</td><td>2</td><td>—</td><td>—</td></tr>
-      <tr><td>Cliente deu OK da recomendação — E-mail</td><td>2</td><td class="lo">100%</td><td class="hi">0%</td></tr>
-      <tr><td>Registro Concluído — WhatsApp</td><td>1</td><td>—</td><td>—</td></tr>
-      <tr><td>Registro Concluído — E-mail</td><td>1</td><td class="hi">0%</td><td class="hi">0%</td></tr>
-      <tr class="tot"><td>Total</td><td>75</td><td>—</td><td>—</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note-line">Os 62 disparos de "Leads Modelo de Empresa" respondem por 83% do volume da semana e não têm medição de abertura nem de clique.</p>
-  </div>
-
-  <div class="sec"><h2>Combo Contabilidade + Abertura</h2></div>
-  <div class="grid2">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Meta Ads <span class="tag o">Juan</span></h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th><th>Custo/conv.</th></tr></thead>
-        <tbody>
-          <tr><td>Promoção: Contabilidade + Abertura</td><td>R$ 192</td><td>110</td><td>4,25%</td><td>12</td><td>R$ 95,78</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note-line">Sem campanhas de Google Ads nesta iniciativa no período.</p>
-    </div>
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Site e atendimento</h4>
-      <div class="bars" id="sm-combo"></div>
-      <p class="note-line">6 leads, sem engajamento. Tema: No Response (5), Unqualified (1).</p>
-    </div>
-  </div>
-
-  <div class="sec"><h2>Holding e USA</h2></div>
-  <div class="grid2">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Holding <span class="tag p">R$ 913,96</span></h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th></tr></thead>
-        <tbody>
-          <tr><td>(BRA)_Holding · Meta</td><td>R$ 786</td><td>1.330</td><td class="lo">5,85%</td><td>5</td></tr>
-          <tr><td>Holding · Google</td><td>R$ 128</td><td>4</td><td>3,77%</td><td class="hi">0</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note-line">1.330 cliques no Meta e 10 sessões na landing page. Nenhum lead.</p>
-    </div>
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">USA <span class="tag g">R$ 545,71</span></h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th></tr></thead>
-        <tbody>
-          <tr><td>[USA] Search Bookkeeping South FL</td><td>R$ 546</td><td>34</td><td>1,92%</td><td class="hi">0</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note-line">Sem campanhas de Meta. Home com 139 sessões, nenhum lead.</p>
-    </div>
-  </div>
+  <div id="sm-frentes"></div>
 
   <div class="sec"><h2>Comparativo com a semana anterior</h2><p><span id="sm-per3"></span></p></div>
-  <div class="grid2">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Totais da semana</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Métrica</th><th>Semana</th><th>Anterior</th><th>Variação</th></tr></thead>
-        <tbody id="sm-comp"></tbody>
-      </table></div>
-    </div>
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Campanhas do Google Ads</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>CTR</th><th>Conv.</th><th>R$/conv.</th><th>Δ invest.</th></tr></thead>
-        <tbody id="sm-gcamp"></tbody>
-      </table></div>
-    </div>
-  </div>
-  <div class="grid2" style="margin-top:14px">
-    <div class="card">
-      <h4 style="font-size:13px;margin-bottom:14px">Campanhas do Meta Ads</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>Campanha</th><th>Invest.</th><th>Cliques</th><th>Leads</th><th>R$/lead</th><th>Leads ant.</th><th>Δ leads</th></tr></thead>
-        <tbody id="sm-campcomp"></tbody>
-      </table></div>
-    </div>
-  </div>
-  <div class="sec"><h2>Performance das peças</h2><p>Meta Ads · cada anúncio no ar na semana</p></div>
-  <div class="kpis" id="sm-mov" style="margin-bottom:16px"></div>
-  <div class="grid3" id="sm-galeria" style="margin-bottom:14px"></div>
-  <p class="note-line" style="margin:-4px 0 14px">Peças em cinza saíram do ar nesta semana. As marcadas com <b>?</b> tiveram a imagem associada por dedução, comparando o nome do anúncio com os criativos do relatório v4 — vale conferir com a Carol.</p>
-  <div class="card"><div class="scroll"><table>
-    <thead><tr><th>Peça</th><th>Investimento</th><th>Cliques</th><th>CTR</th><th>Chegou na página</th><th>Leads</th><th>R$/lead</th><th>Δ leads</th></tr></thead>
-    <tbody id="sm-pecas"></tbody>
-  </table></div>
-  <p class="note-line"><b>Chegou na página</b> é a razão entre visualizações da landing page e cliques: quanto o anúncio entrega de verdade ao site. Abaixo de 50% indica gente que clica e desiste antes de carregar — em geral por lentidão ou por navegador interno do Instagram.</p>
+  <div class="card">
+    <h4 style="font-size:13px;margin-bottom:14px">Totais da semana</h4>
+    <div class="scroll"><table>
+      <thead><tr><th>Métrica</th><th>Semana</th><th>Anterior</th><th>Variação</th></tr></thead>
+      <tbody id="sm-comp"></tbody>
+    </table></div>
   </div>
 
-  <div class="pending" style="margin-top:14px">
-    <b>O que não entra neste comparativo.</b> As seções de <b>Análise de Páginas</b>, leads de atendimento e jornada de CRM continuam manuais — dependem de leitura das peças, do Microsoft Clarity e do preenchimento dos responsáveis. Tudo que vem de Meta Ads, Google Ads e GA4 é automático e acompanha o seletor.
-  </div>
-
-  <div class="sec"><h2>Insights</h2></div>
-  <div class="ins">
-    <div class="icard r">
-      <h4>Zero vendas com R$ 4.663 investidos</h4>
-      <p>As quatro iniciativas somaram <b>3 leads</b> e <b>13 chats</b>. Nenhuma venda registrada na semana.</p>
-    </div>
-    <div class="icard r">
-      <h4>Google custa 28× o Meta na mesma oferta</h4>
-      <p>Em Abertura de Empresa: <b>R$ 267,25</b> por conversão no Google contra <b>R$ 9,51</b> no Meta.</p>
-    </div>
-    <div class="icard g">
-      <h4>A calculadora é o motor</h4>
-      <p><b>100</b> das 120 conversões do Meta vieram dela, a <b>R$ 6,92</b> cada. A página /modelo-de-empresa/ teve <b>190</b> sessões, a mais visitada da semana.</p>
-    </div>
-    <div class="icard a">
-      <h4>Holding: clique não vira sessão</h4>
-      <p><b>1.330</b> cliques no Meta e <b>10</b> sessões na landing page. A diferença é grande demais para ser só perda de carregamento.</p>
-    </div>
-    <div class="icard r">
-      <h4>USA sem sinal</h4>
-      <p><b>R$ 546</b> em busca paga, <b>34</b> cliques, zero conversões e nenhum lead. Única iniciativa sem nenhum retorno.</p>
-    </div>
-    <div class="icard">
-      <h4>O chat confirma o padrão do trimestre</h4>
-      <p>Dos 13 chats da semana, o tema mais comum é <b>No Response</b> — o mesmo que responde por 45% dos encerramentos desde junho.</p>
-    </div>
-  </div>
 </div>
 
 <footer>
@@ -712,6 +559,25 @@ const PECAS={
   ["Holding 3","Holding",72.20,91,2256,0,58],
   ["Novo anúncio de Vendas","Remarketing Checkout",69.02,41,1757,0,30],
   ["Holding 4","Holding",34.75,16,731,0,9]]};
+const FCLISTA=[["2026-06-01","R","",""],["2026-06-02","N","",""],["2026-06-03","R","",""],["2026-06-05","R","",""],["2026-06-07","R","",""],["2026-06-10","R","",""],["2026-06-12","R","",""],["2026-06-12","R","",""],["2026-06-13","R","",""],["2026-06-14","R","",""],["2026-06-14","R","",""],["2026-06-15","R","",""],["2026-06-16","R","Initial Questions","Abertura de Empresa"],["2026-06-16","R","",""],["2026-06-16","R","Not Interested / Declined",""],["2026-06-16","R","",""],["2026-06-17","R","Follow-Up Needed","Abertura de Empresa"],["2026-06-17","R","No Response","Company Incorporation"],["2026-06-17","R","Converted Clients","Abertura de Empresa"],["2026-06-17","R","",""],["2026-06-17","R","",""],["2026-06-17","R","",""],["2026-06-17","R","",""],["2026-06-18","R","No Response","Abertura de Empresa"],["2026-06-18","R","No Response","Abertura de Empresa"],["2026-06-18","R","",""],["2026-06-18","R","",""],["2026-06-18","R","",""],["2026-06-18","R","Meeting Scheduled","Abertura de Empresa"],["2026-06-18","R","No Response",""],["2026-06-18","R","No Response","Abertura de Empresa"],["2026-06-19","R","",""],["2026-06-20","R","No Response","Abertura de Empresa"],["2026-06-20","R","Unqualified / Irrelevant Leads",""],["2026-06-20","R","No Response","Abertura de Empresa"],["2026-06-20","R","No Response","Abertura de Empresa"],["2026-06-21","R","No Response","Abertura de Empresa"],["2026-06-21","R","No Response","Abertura de Empresa"],["2026-06-21","R","No Response","Abertura de Empresa"],["2026-06-21","R","Unqualified / Irrelevant Leads",""],["2026-06-21","R","Unqualified / Irrelevant Leads",""],["2026-06-21","R","Unqualified / Irrelevant Leads",""],["2026-06-21","R","Unqualified / Irrelevant Leads",""],["2026-06-22","R","No Response","Abertura de Empresa"],["2026-06-22","R","No Response","Abertura de Empresa"],["2026-06-23","R","No Response","Abertura de Empresa"],["2026-06-24","R","No Response","Abertura de Empresa"],["2026-06-24","R","Initial Questions","Abertura de Empresa"],["2026-06-24","R","Unqualified / Irrelevant Leads",""],["2026-06-24","R","",""],["2026-06-24","R","",""],["2026-06-24","R","",""],["2026-06-24","R","",""],["2026-06-24","B","",""],["2026-06-24","R","No Response","Abertura de Empresa"],["2026-06-25","R","Initial Questions","Abertura de Empresa"],["2026-06-25","R","No Response","Abertura de Empresa"],["2026-06-25","R","Unqualified / Irrelevant Leads",""],["2026-06-25","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-25","R","Unqualified / Irrelevant Leads",""],["2026-06-25","R","Meeting Scheduled","Abertura de Empresa"],["2026-06-26","R","",""],["2026-06-26","R","No Response",""],["2026-06-26","R","No Response","Abertura de Empresa"],["2026-06-26","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-26","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-26","R","Follow-Up Needed","Modelo de Abertura"],["2026-06-26","R","Follow-Up Needed","Abertura de Empresa"],["2026-06-26","R","No Response","Abertura de Empresa"],["2026-06-26","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-26","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-26","R","Meeting Scheduled","Abertura de Empresa"],["2026-06-27","R","No Response","Abertura de Empresa"],["2026-06-27","R","Unqualified / Irrelevant Leads",""],["2026-06-27","B","",""],["2026-06-27","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-06-27","R","No Response","Abertura de Empresa"],["2026-06-28","R","Initial Questions","Abertura de Empresa"],["2026-06-28","R","Initial Questions","Abertura de Empresa"],["2026-06-28","R","Initial Questions","Modelo de Abertura"],["2026-06-28","R","Not Interested / Declined","Abertura de Empresa"],["2026-06-28","B","",""],["2026-06-28","B","",""],["2026-06-28","R","No Response","Abertura de Empresa"],["2026-06-28","R","Not Interested / Declined",""],["2026-06-28","R","Not Interested / Declined",""],["2026-06-28","B","",""],["2026-06-28","B","",""],["2026-06-28","R","Meeting Scheduled","Abertura de Empresa"],["2026-06-28","R","No Response","Abertura de Empresa"],["2026-06-28","R","Meeting Scheduled","Abertura de Empresa"],["2026-06-29","R","Unqualified / Irrelevant Leads",""],["2026-06-29","R","Initial Questions","Abertura de Empresa"],["2026-06-29","R","",""],["2026-06-29","R","No Response","Abertura de Empresa"],["2026-06-29","R","Initial Questions","Abertura de Empresa"],["2026-06-29","R","Not Interested / Declined",""],["2026-06-29","R","No Response","Abertura de Empresa"],["2026-06-29","R","",""],["2026-06-30","R","No Response","Abertura de Empresa"],["2026-06-30","R","Unqualified / Irrelevant Leads",""],["2026-06-30","R","Initial Questions",""],["2026-06-30","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-01","R","Initial Questions","Abertura de Empresa"],["2026-07-01","B","",""],["2026-07-01","R","Unqualified / Irrelevant Leads",""],["2026-07-01","R","Initial Questions","Abertura de Empresa"],["2026-07-01","R","Initial Questions","Abertura de Empresa"],["2026-07-01","R","No Response","Abertura de Empresa"],["2026-07-02","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-02","R","No Response","Abertura de Empresa"],["2026-07-02","R","",""],["2026-07-02","R","No Response","Abertura de Empresa"],["2026-07-02","B","",""],["2026-07-02","B","",""],["2026-07-02","R","No Response","Abertura de Empresa"],["2026-07-02","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-03","R","Initial Questions","Abertura de Empresa"],["2026-07-03","R","Initial Questions","Abertura de Empresa"],["2026-07-03","A","Follow-Up Needed","Abertura de Empresa"],["2026-07-04","R","No Response","Abertura de Empresa"],["2026-07-04","R","No Response","Abertura de Empresa"],["2026-07-04","A","Follow-Up Needed","Abertura de Empresa"],["2026-07-04","R","No Response","Abertura de Empresa"],["2026-07-04","R","No Response","Abertura de Empresa"],["2026-07-04","R","No Response","Abertura de Empresa"],["2026-07-05","B","",""],["2026-07-05","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-05","R","No Response","Abertura de Empresa"],["2026-07-05","R","Not Interested / Declined","Abertura de Empresa"],["2026-07-05","R","No Response","Abertura de Empresa"],["2026-07-05","R","No Response","Abertura de Empresa"],["2026-07-05","R","No Response","Abertura de Empresa"],["2026-07-06","R","No Response","Abertura de Empresa"],["2026-07-06","A","Follow-Up Needed","Abertura de Empresa"],["2026-07-06","B","",""],["2026-07-06","B","",""],["2026-07-06","R","No Response","Abertura de Empresa"],["2026-07-06","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","Initial Questions","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-07","R","",""],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-07","R","No Response","Abertura de Empresa"],["2026-07-08","B","",""],["2026-07-08","R","No Response","Abertura de Empresa"],["2026-07-08","R","No Response","Abertura de Empresa"],["2026-07-08","R","Partner Referrals","Abertura de Empresa"],["2026-07-09","B","",""],["2026-07-09","B","",""],["2026-07-09","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-09","R","No Response","Abertura de Empresa"],["2026-07-09","R","No Response","Abertura de Empresa"],["2026-07-09","B","",""],["2026-07-10","R","Converted Clients","Abertura de Empresa"],["2026-07-10","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-10","R","No Response","Abertura de Empresa"],["2026-07-10","R","No Response","Abertura de Empresa"],["2026-07-10","R","Initial Questions","Abertura de Empresa"],["2026-07-10","R","No Response","Abertura de Empresa"],["2026-07-11","B","",""],["2026-07-11","R","No Response","Abertura de Empresa"],["2026-07-12","R","No Response","Abertura de Empresa"],["2026-07-12","R","No Response","Abertura de Empresa"],["2026-07-12","B","",""],["2026-07-12","R","No Response","Company Incorporation"],["2026-07-12","B","",""],["2026-07-12","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-13","B","",""],["2026-07-13","R","No Response","Abertura de Empresa"],["2026-07-13","R","Follow-Up Needed","Modelo de Abertura"],["2026-07-13","R","No Response","Abertura de Empresa"],["2026-07-13","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-13","R","Not Interested / Declined","Abertura de Empresa"],["2026-07-13","R","No Response","Company Incorporation"],["2026-07-13","R","Initial Questions","Abertura de Empresa"],["2026-07-14","R","No Response","Company Incorporation"],["2026-07-14","R","Initial Questions","Abertura de Empresa"],["2026-07-14","B","",""],["2026-07-14","R","Initial Questions","Abertura de Empresa"],["2026-07-14","A","Follow-Up Needed","Abertura de Empresa"],["2026-07-14","B","",""],["2026-07-14","B","",""],["2026-07-14","R","No Response","Abertura de Empresa"],["2026-07-14","A","Initial Questions","Abertura de Empresa"],["2026-07-14","R","Not Interested / Declined","Company Incorporation"],["2026-07-15","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-15","R","Follow-Up Needed","Modelo de Abertura"],["2026-07-15","B","",""],["2026-07-15","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-15","R","Follow-Up Needed","Holding"],["2026-07-15","R","Not Interested / Declined","Modelo de Abertura"],["2026-07-15","R","No Response","Abertura de Empresa"],["2026-07-15","R","",""],["2026-07-15","B","",""],["2026-07-16","R","No Response","Abertura de Empresa"],["2026-07-16","R","Follow-Up Needed","Modelo de Abertura"],["2026-07-16","N","",""],["2026-07-16","R","Initial Questions","Modelo de Abertura"],["2026-07-16","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-16","B","",""],["2026-07-16","R","No Response","Abertura de Empresa"],["2026-07-16","R","No Response","Abertura de Empresa"],["2026-07-16","R","No Response","Company Incorporation"],["2026-07-16","R","No Response","Company Incorporation"],["2026-07-16","R","Initial Questions","Abertura de Empresa"],["2026-07-16","N","Follow-Up Needed","Abertura de Empresa"],["2026-07-16","R","No Response","Company Incorporation"],["2026-07-16","B","",""],["2026-07-16","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-17","R","No Response","Abertura de Empresa"],["2026-07-17","R","No Response","Abertura de Empresa"],["2026-07-17","R","No Response","Abertura de Empresa"],["2026-07-17","R","Initial Questions","Modelo de Abertura"],["2026-07-17","R","",""],["2026-07-17","R","",""],["2026-07-17","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-17","R","Initial Questions","Modelo de Abertura"],["2026-07-17","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-17","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-17","R","No Response","Company Incorporation"],["2026-07-18","R","No Response","Abertura de Empresa"],["2026-07-18","B","",""],["2026-07-18","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-18","R","No Response","Abertura de Empresa"],["2026-07-18","B","",""],["2026-07-18","R","Not Interested / Declined","Abertura de Empresa"],["2026-07-18","R","No Response","Abertura de Empresa"],["2026-07-18","R","Initial Questions","Abertura de Empresa"],["2026-07-19","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-19","R","No Response","Abertura de Empresa"],["2026-07-19","R","No Response","Abertura de Empresa"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-19","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-19","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-19","R","No Response","Abertura de Empresa"],["2026-07-19","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-19","R","No Response","Abertura de Empresa"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-19","R","No Response","Company Incorporation"],["2026-07-20","R","",""],["2026-07-20","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-20","R","No Response","Company Incorporation"],["2026-07-20","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-20","R","No Response","Company Incorporation"],["2026-07-20","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-20","R","No Response","Company Incorporation"],["2026-07-20","R","No Response","Company Incorporation"],["2026-07-20","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-21","R","No Response","Modelo de Abertura"],["2026-07-21","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-21","R","No Response","Abertura de Empresa"],["2026-07-21","R","Not Interested / Declined","Abertura de Empresa"],["2026-07-21","B","",""],["2026-07-21","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-21","R","No Response","Company Incorporation"],["2026-07-21","R","Initial Questions","Abertura de Empresa"],["2026-07-22","B","",""],["2026-07-22","R","Not Interested / Declined","Modelo de Abertura"],["2026-07-22","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-22","R","Initial Questions","Modelo de Abertura"],["2026-07-22","R","No Response","Modelo de Abertura"],["2026-07-22","R","Not Interested / Declined","Abertura de Empresa"],["2026-07-22","R","No Response","Company Incorporation"],["2026-07-22","R","No Response","Company Incorporation"],["2026-07-22","R","No Response","Company Incorporation"],["2026-07-22","R","No Response","Company Incorporation"],["2026-07-22","R","Unqualified / Irrelevant Leads","Company Incorporation"],["2026-07-22","R","No Response","Abertura de Empresa"],["2026-07-22","R","No Response","Abertura de Empresa"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","No Response","Promo Contabilidade"],["2026-07-23","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-23","B","",""],["2026-07-23","B","",""],["2026-07-23","R","No Response","Abertura de Empresa"],["2026-07-23","R","",""],["2026-07-23","R","No Response","Abertura de Empresa"],["2026-07-23","B","",""],["2026-07-23","R","No Response","Company Incorporation"],["2026-07-24","R","No Response","Abertura de Empresa"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-24","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","",""],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Abertura de Empresa"],["2026-07-24","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","A","No Response","Abertura de Empresa"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","A","Meeting Scheduled","Abertura de Empresa"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-24","R","No Response","Promo Contabilidade"],["2026-07-25","R","Not Interested / Declined","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-25","R","No Response","Promo Contabilidade"],["2026-07-25","R","No Response","Promo Contabilidade"],["2026-07-25","R","No Response","Promo Contabilidade"],["2026-07-25","R","No Response","Promo Contabilidade"],["2026-07-25","R","No Response","Promo Contabilidade"],["2026-07-26","R","No Response","Abertura de Empresa"],["2026-07-26","R","Not Interested / Declined","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-26","R","Not Interested / Declined","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","No Response","Promo Contabilidade"],["2026-07-26","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","No Response","Promo Contabilidade"],["2026-07-27","R","No Response","Modelo de Abertura"],["2026-07-27","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","Cliente","Abertura de Empresa"],["2026-07-27","R","No Response","Promo Contabilidade"],["2026-07-27","R","Unqualified / Irrelevant Leads","Modelo de Abertura"],["2026-07-27","R","Converted Clients","Holding"],["2026-07-27","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-27","R","Follow-Up Needed","Modelo de Abertura"],["2026-07-28","R","Initial Questions","Modelo de Abertura"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","Unqualified / Irrelevant Leads","Modelo de Abertura"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","B","",""],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-28","R","No Response","Promo Contabilidade"],["2026-07-29","R","Not Interested / Declined","Modelo de Abertura"],["2026-07-29","R","Not Interested / Declined","Modelo de Abertura"],["2026-07-29","R","Initial Questions","Modelo de Abertura"],["2026-07-29","R","No Response","Abertura de Empresa"],["2026-07-29","R","Initial Questions","Modelo de Abertura"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","Initial Questions","Abertura de Empresa"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","Initial Questions","Promo Contabilidade"],["2026-07-30","R","No Response","Abertura de Empresa"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-30","R","No Response","Abertura de Empresa"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-30","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","No Response","Promo Contabilidade"],["2026-07-30","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-30","R","Follow-Up Needed","Abertura de Empresa"],["2026-07-31","R","Converted Clients","Modelo de Abertura"],["2026-07-31","R","","Abertura de Empresa"],["2026-07-31","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-31","R","Initial Questions","Promo Contabilidade"],["2026-07-31","R","",""],["2026-07-31","R","No Response","Promo Contabilidade"],["2026-07-31","R","No Response","Promo Contabilidade"],["2026-07-31","A","Follow-Up Needed","Promo Contabilidade"],["2026-07-31","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-31","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-07-31","R","No Response","Abertura de Empresa"],["2026-07-31","R","No Response","Promo Contabilidade"],["2026-08-01","A","Initial Questions","Promo Contabilidade"],["2026-08-01","A","Meeting Scheduled","Promo Contabilidade"],["2026-08-01","R","No Response","Promo Contabilidade"],["2026-08-01","R","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-08-01","R","Not Interested / Declined","Abertura de Empresa"],["2026-08-01","R","Initial Questions","Promo Contabilidade"],["2026-08-01","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-01","R","Follow-Up Needed","Abertura de Empresa"],["2026-08-01","A","Follow-Up Needed","Promo Contabilidade"],["2026-08-02","R","","Promo Contabilidade"],["2026-08-02","R","No Response","Promo Contabilidade"],["2026-08-02","R","","Abertura de Empresa"],["2026-08-03","R","No Response","Modelo de Abertura"],["2026-08-03","A","Meeting Scheduled","Promo Contabilidade"],["2026-08-03","R","No Response","Promo Contabilidade"],["2026-08-03","R","Initial Questions","Modelo de Abertura"],["2026-08-04","A","Meeting Scheduled","Abertura de Empresa"],["2026-08-04","A","No Response","Promo Contabilidade"],["2026-08-04","R","No Response","Promo Contabilidade"],["2026-08-04","R","Converted Clients","Modelo de Abertura"],["2026-08-04","R","Initial Questions","Modelo de Abertura"],["2026-08-04","R","Not Interested / Declined","Modelo de Abertura"],["2026-08-05","A","Initial Questions","Modelo de Abertura"],["2026-08-05","A","Initial Questions","Modelo de Abertura"],["2026-08-05","R","Initial Questions","Modelo de Abertura"],["2026-08-05","A","Initial Questions","Modelo de Abertura"],["2026-08-05","A","Follow-Up Needed","Modelo de Abertura"],["2026-08-05","R","No Response","Promo Contabilidade"],["2026-08-06","R","",""],["2026-08-06","R","No Response","Promo Contabilidade"],["2026-08-06","R","Initial Questions","Modelo de Abertura"],["2026-08-06","R","Follow-Up Needed","Modelo de Abertura"],["2026-08-06","A","Initial Questions","Modelo de Abertura"],["2026-08-06","R","No Response","Modelo de Abertura"],["2026-08-07","R","No Response","Promo Contabilidade"],["2026-08-07","A","No Response","Promo Contabilidade"],["2026-08-07","A","Initial Questions","Abertura de Empresa"],["2026-08-07","R","Initial Questions","Promo Contabilidade"],["2026-08-07","R","No Response","Promo Contabilidade"],["2026-08-08","A","No Response","Promo Contabilidade"],["2026-08-09","R","No Response","Abertura de Empresa"],["2026-08-09","R","No Response","Abertura de Empresa"],["2026-08-09","R","No Response","Promo Contabilidade"],["2026-08-09","R","Not Interested / Declined","Abertura de Empresa"],["2026-08-09","R","No Response","Modelo de Abertura"],["2026-08-09","A","Initial Questions","Promo Contabilidade"],["2026-08-09","R","No Response","Abertura de Empresa"],["2026-08-09","R","No Response","Abertura de Empresa"],["2026-08-09","R","Meeting Scheduled","Modelo de Abertura"],["2026-08-10","R","No Response","Abertura de Empresa"],["2026-08-10","R","Initial Questions","Abertura de Empresa"],["2026-08-10","R","No Response","Abertura de Empresa"],["2026-08-11","R","Initial Questions","Promo Contabilidade"],["2026-08-11","R","No Response","Abertura de Empresa"],["2026-08-11","R","Initial Questions","Promo Contabilidade"],["2026-08-12","R","No Response","Promo Contabilidade"],["2026-08-12","R","No Response","Promo Contabilidade"],["2026-08-12","R","Initial Questions","Modelo de Abertura"],["2026-08-12","B","",""],["2026-08-13","A","No Response","Promo Contabilidade"],["2026-08-13","A","Initial Questions","Modelo de Abertura"],["2026-08-14","N","",""],["2026-08-15","A","Follow-Up Needed","Abertura de Empresa"],["2026-08-15","A","No Response","Modelo de Abertura"],["2026-08-16","A","Unqualified / Irrelevant Leads","Promo Contabilidade"],["2026-08-16","A","No Response","Promo Contabilidade"],["2026-08-16","A","Initial Questions","Abertura de Empresa"],["2026-08-16","A","No Response","Abertura de Empresa"],["2026-08-17","A","No Response","Promo Contabilidade"],["2026-08-17","A","No Response","Promo Contabilidade"],["2026-08-18","N","",""],["2026-08-18","A","No Response","Promo Contabilidade"],["2026-08-20","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-20","R","","Modelo de Abertura"],["2026-08-20","A","No Response","Modelo de Abertura"],["2026-08-21","A","No Response","Abertura de Empresa"],["2026-08-21","R","Unqualified / Irrelevant Leads","Modelo de Abertura"],["2026-08-21","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-21","A","Initial Questions","Abertura de Empresa"],["2026-08-23","A","No Response","Modelo de Abertura"],["2026-08-23","A","Follow-Up Needed","Modelo de Abertura"],["2026-08-23","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-23","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-24","R","Initial Questions","Modelo de Abertura"],["2026-08-24","R","Unqualified / Irrelevant Leads","Abertura de Empresa"],["2026-08-24","A","Initial Questions","Abertura de Empresa"],["2026-08-25","N","",""],["2026-08-25","A","","Abertura de Empresa"],["2026-08-25","A","No Response","Abertura de Empresa"],["2026-08-25","A","Initial Questions","Abertura de Empresa"]];
+const FCCRUZ={"2026-06-16":{"Abertura de Empresa":{"Initial Questions":1}},"2026-06-17":{"Abertura de Empresa":{"Follow-Up Needed":1,"Converted Clients":1},"Company Incorporation":{"No Response":1}},"2026-06-18":{"Abertura de Empresa":{"No Response":3,"Meeting Scheduled":1}},"2026-06-20":{"Abertura de Empresa":{"No Response":3}},"2026-06-21":{"Abertura de Empresa":{"No Response":3}},"2026-06-22":{"Abertura de Empresa":{"No Response":2}},"2026-06-23":{"Abertura de Empresa":{"No Response":1}},"2026-06-24":{"Abertura de Empresa":{"No Response":2,"Initial Questions":1}},"2026-06-25":{"Abertura de Empresa":{"Initial Questions":1,"No Response":1,"Unqualified / Irrelevant Leads":1,"Meeting Scheduled":1}},"2026-06-26":{"Abertura de Empresa":{"No Response":2,"Unqualified / Irrelevant Leads":4,"Follow-Up Needed":1,"Meeting Scheduled":1},"Modelo de Abertura":{"Follow-Up Needed":1}},"2026-06-27":{"Abertura de Empresa":{"No Response":2,"Unqualified / Irrelevant Leads":1}},"2026-06-28":{"Abertura de Empresa":{"Initial Questions":2,"Not Interested / Declined":1,"No Response":2,"Meeting Scheduled":2},"Modelo de Abertura":{"Initial Questions":1}},"2026-06-29":{"Abertura de Empresa":{"Initial Questions":2,"No Response":2}},"2026-06-30":{"Abertura de Empresa":{"No Response":1,"Unqualified / Irrelevant Leads":1}},"2026-07-01":{"Abertura de Empresa":{"Initial Questions":3,"No Response":1}},"2026-07-02":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":2,"No Response":3}},"2026-07-03":{"Abertura de Empresa":{"Initial Questions":2,"Follow-Up Needed":1}},"2026-07-04":{"Abertura de Empresa":{"No Response":5,"Follow-Up Needed":1}},"2026-07-05":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":1,"No Response":4,"Not Interested / Declined":1}},"2026-07-06":{"Abertura de Empresa":{"No Response":3,"Follow-Up Needed":1}},"2026-07-07":{"Abertura de Empresa":{"No Response":8,"Initial Questions":1,"Follow-Up Needed":1}},"2026-07-08":{"Abertura de Empresa":{"No Response":2,"Partner Referrals":1}},"2026-07-09":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":1,"No Response":2}},"2026-07-10":{"Abertura de Empresa":{"Converted Clients":1,"Unqualified / Irrelevant Leads":1,"No Response":3,"Initial Questions":1}},"2026-07-11":{"Abertura de Empresa":{"No Response":1}},"2026-07-12":{"Abertura de Empresa":{"No Response":2,"Follow-Up Needed":1},"Company Incorporation":{"No Response":1}},"2026-07-13":{"Abertura de Empresa":{"No Response":2,"Follow-Up Needed":1,"Not Interested / Declined":1,"Initial Questions":1},"Modelo de Abertura":{"Follow-Up Needed":1},"Company Incorporation":{"No Response":1}},"2026-07-14":{"Company Incorporation":{"No Response":1,"Not Interested / Declined":1},"Abertura de Empresa":{"Initial Questions":3,"Follow-Up Needed":1,"No Response":1}},"2026-07-15":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":2,"No Response":1},"Modelo de Abertura":{"Follow-Up Needed":1,"Not Interested / Declined":1},"Holding":{"Follow-Up Needed":1}},"2026-07-16":{"Abertura de Empresa":{"No Response":3,"Follow-Up Needed":3,"Initial Questions":1},"Modelo de Abertura":{"Follow-Up Needed":1,"Initial Questions":1},"Company Incorporation":{"No Response":3}},"2026-07-17":{"Abertura de Empresa":{"No Response":3},"Modelo de Abertura":{"Initial Questions":2},"Company Incorporation":{"Unqualified / Irrelevant Leads":3,"No Response":1}},"2026-07-18":{"Abertura de Empresa":{"No Response":3,"Unqualified / Irrelevant Leads":1,"Not Interested / Declined":1,"Initial Questions":1}},"2026-07-19":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":2,"No Response":4},"Company Incorporation":{"No Response":6,"Unqualified / Irrelevant Leads":2}},"2026-07-20":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":3},"Company Incorporation":{"No Response":4,"Unqualified / Irrelevant Leads":1}},"2026-07-21":{"Modelo de Abertura":{"No Response":1},"Company Incorporation":{"Unqualified / Irrelevant Leads":1,"No Response":1},"Abertura de Empresa":{"No Response":1,"Not Interested / Declined":1,"Unqualified / Irrelevant Leads":1,"Initial Questions":1}},"2026-07-22":{"Modelo de Abertura":{"Not Interested / Declined":1,"Initial Questions":1,"No Response":1},"Abertura de Empresa":{"Follow-Up Needed":1,"Not Interested / Declined":1,"No Response":2},"Company Incorporation":{"No Response":4,"Unqualified / Irrelevant Leads":1}},"2026-07-23":{"Promo Contabilidade":{"No Response":6,"Unqualified / Irrelevant Leads":1},"Abertura de Empresa":{"No Response":2},"Company Incorporation":{"No Response":1}},"2026-07-24":{"Abertura de Empresa":{"No Response":3,"Meeting Scheduled":1},"Promo Contabilidade":{"No Response":33,"Unqualified / Irrelevant Leads":5}},"2026-07-25":{"Promo Contabilidade":{"Not Interested / Declined":1,"Unqualified / Irrelevant Leads":9,"No Response":5}},"2026-07-26":{"Abertura de Empresa":{"No Response":1},"Promo Contabilidade":{"Not Interested / Declined":2,"No Response":7,"Unqualified / Irrelevant Leads":4}},"2026-07-27":{"Promo Contabilidade":{"No Response":2,"Unqualified / Irrelevant Leads":5},"Modelo de Abertura":{"No Response":1,"Unqualified / Irrelevant Leads":1,"Follow-Up Needed":1},"Abertura de Empresa":{"Cliente":1},"Holding":{"Converted Clients":1}},"2026-07-28":{"Modelo de Abertura":{"Initial Questions":1,"Unqualified / Irrelevant Leads":1},"Promo Contabilidade":{"No Response":8}},"2026-07-29":{"Modelo de Abertura":{"Not Interested / Declined":2,"Initial Questions":2},"Abertura de Empresa":{"No Response":1}},"2026-07-30":{"Promo Contabilidade":{"No Response":6,"Initial Questions":1,"Unqualified / Irrelevant Leads":1},"Abertura de Empresa":{"Initial Questions":1,"No Response":2,"Follow-Up Needed":2,"Unqualified / Irrelevant Leads":2}},"2026-07-31":{"Modelo de Abertura":{"Converted Clients":1},"Promo Contabilidade":{"Unqualified / Irrelevant Leads":3,"Initial Questions":1,"No Response":3,"Follow-Up Needed":1},"Abertura de Empresa":{"No Response":1}},"2026-08-01":{"Promo Contabilidade":{"Initial Questions":2,"Meeting Scheduled":1,"No Response":1,"Unqualified / Irrelevant Leads":1,"Follow-Up Needed":1},"Abertura de Empresa":{"Not Interested / Declined":1,"Unqualified / Irrelevant Leads":1,"Follow-Up Needed":1}},"2026-08-02":{"Promo Contabilidade":{"No Response":1}},"2026-08-03":{"Modelo de Abertura":{"No Response":1,"Initial Questions":1},"Promo Contabilidade":{"Meeting Scheduled":1,"No Response":1}},"2026-08-04":{"Abertura de Empresa":{"Meeting Scheduled":1},"Promo Contabilidade":{"No Response":2},"Modelo de Abertura":{"Converted Clients":1,"Initial Questions":1,"Not Interested / Declined":1}},"2026-08-05":{"Modelo de Abertura":{"Initial Questions":4,"Follow-Up Needed":1},"Promo Contabilidade":{"No Response":1}},"2026-08-06":{"Promo Contabilidade":{"No Response":1},"Modelo de Abertura":{"Initial Questions":2,"Follow-Up Needed":1,"No Response":1}},"2026-08-07":{"Promo Contabilidade":{"No Response":3,"Initial Questions":1},"Abertura de Empresa":{"Initial Questions":1}},"2026-08-08":{"Promo Contabilidade":{"No Response":1}},"2026-08-09":{"Abertura de Empresa":{"No Response":4,"Not Interested / Declined":1},"Promo Contabilidade":{"No Response":1,"Initial Questions":1},"Modelo de Abertura":{"No Response":1,"Meeting Scheduled":1}},"2026-08-10":{"Abertura de Empresa":{"No Response":2,"Initial Questions":1}},"2026-08-11":{"Promo Contabilidade":{"Initial Questions":2},"Abertura de Empresa":{"No Response":1}},"2026-08-12":{"Promo Contabilidade":{"No Response":2},"Modelo de Abertura":{"Initial Questions":1}},"2026-08-13":{"Promo Contabilidade":{"No Response":1},"Modelo de Abertura":{"Initial Questions":1}},"2026-08-15":{"Abertura de Empresa":{"Follow-Up Needed":1},"Modelo de Abertura":{"No Response":1}},"2026-08-16":{"Promo Contabilidade":{"Unqualified / Irrelevant Leads":1,"No Response":1},"Abertura de Empresa":{"Initial Questions":1,"No Response":1}},"2026-08-17":{"Promo Contabilidade":{"No Response":2}},"2026-08-18":{"Promo Contabilidade":{"No Response":1}},"2026-08-20":{"Abertura de Empresa":{"Unqualified / Irrelevant Leads":1},"Modelo de Abertura":{"No Response":1}},"2026-08-21":{"Abertura de Empresa":{"No Response":1,"Unqualified / Irrelevant Leads":1,"Initial Questions":1},"Modelo de Abertura":{"Unqualified / Irrelevant Leads":1}},"2026-08-23":{"Modelo de Abertura":{"No Response":1,"Follow-Up Needed":1},"Abertura de Empresa":{"Unqualified / Irrelevant Leads":2}},"2026-08-24":{"Modelo de Abertura":{"Initial Questions":1},"Abertura de Empresa":{"Unqualified / Irrelevant Leads":1,"Initial Questions":1}},"2026-08-25":{"Abertura de Empresa":{"No Response":1,"Initial Questions":1}}};
+
+const REGUA={"2026-04-30":{"LQ":{"ent":55,"p2":55,"resp":0}},"2026-05-28":{"LQ":{"ent":1,"p2":1,"resp":0}},"2026-06-04":{"LQ":{"ent":17,"p2":15,"resp":0}},"2026-06-11":{"LQ":{"ent":5,"p2":3,"resp":0},"AC":{"ent":2,"p2":2,"resp":0}},"2026-06-18":{"AC":{"ent":8,"p2":6,"resp":0},"LQ":{"ent":5,"p2":5,"resp":2}},"2026-06-25":{"LQ":{"ent":8,"p2":7,"resp":2},"AC":{"ent":3,"p2":3,"resp":0}},"2026-07-02":{"AC":{"ent":10,"p2":10,"resp":0},"LQ":{"ent":1,"p2":1,"resp":0}},"2026-07-09":{"LQ":{"ent":11,"p2":8,"resp":5},"AC":{"ent":19,"p2":17,"resp":1}},"2026-07-16":{"AC":{"ent":9,"p2":9,"resp":0},"LQ":{"ent":28,"p2":28,"resp":6}},"2026-07-23":{"AC":{"ent":1,"p2":1,"resp":0},"LQ":{"ent":4,"p2":4,"resp":2}},"2026-07-30":{"AC":{"ent":2,"p2":2,"resp":0},"LQ":{"ent":4,"p2":2,"resp":0}},"2026-08-06":{"LQ":{"ent":3,"p2":2,"resp":0},"AC":{"ent":5,"p2":5,"resp":0}},"2026-08-13":{"AC":{"ent":2,"p2":2,"resp":0},"LQ":{"ent":1,"p2":1,"resp":0}},"2026-08-20":{"AC":{"ent":1,"p2":1,"resp":0},"LQ":{"ent":1,"p2":1,"resp":0}}};
+const CRMDIA={"2026-04-30":{"Whatsapp enviado - Lead Qualificado 1":11,"Whatsapp enviado - Lead Qualificado 2":1},"2026-05-01":{"Whatsapp enviado - Lead Qualificado 1":19,"Whatsapp enviado - Lead Qualificado 2":19},"2026-05-02":{"Whatsapp enviado - Lead Qualificado 1":15},"2026-05-03":{"Whatsapp enviado - Lead Qualificado 1":6},"2026-05-04":{"Whatsapp enviado - Lead Qualificado 1":4,"Whatsapp enviado - Lead Qualificado 2":40},"2026-05-05":{"Whatsapp enviado - Lead Qualificado 2":4},"2026-06-02":{"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-03":{"Whatsapp enviado - Lead Qualificado 2":1},"2026-06-05":{"Whatsapp enviado - Lead Qualificado 1":6},"2026-06-06":{"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-07":{"Whatsapp enviado - Lead Qualificado 1":3},"2026-06-08":{"Whatsapp enviado - Lead Qualificado 1":3,"Whatsapp enviado - Lead Qualificado 2":7},"2026-06-09":{"Whatsapp enviado - Lead Qualificado 2":4,"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-10":{"Whatsapp enviado - Lead Qualificado 1":3,"Whatsapp enviado - Lead Qualificado 2":1},"2026-06-11":{"Whatsapp enviado - Lead Qualificado 2":3,"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-12":{"Whatsapp enviado - Lead Qualificado 2":1},"2026-06-14":{"Whatsapp enviado - Lead Qualificado 1":3},"2026-06-15":{"Whatsapp enviado - Lead Qualificado 2":1},"2026-06-16":{"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-17":{"Whatsapp enviado - Lead Qualificado 2":1,"Whatsapp enviado - Aguardando Checkout 1":2},"2026-06-18":{"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Aguardando Checkout 2":2},"2026-06-19":{"Whatsapp enviado - Lead Qualificado 1":1,"Whatsapp enviado - Aguardando Checkout 1":4},"2026-06-20":{"Whatsapp enviado - Lead Qualificado 1":2},"2026-06-21":{"Whatsapp enviado - Aguardando Checkout 1":1},"2026-06-22":{"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 2":3,"whatsapp_retorno":2,"__conv":2,"Whatsapp primeira resposta":6,"Whatsapp enviado - Aguardando Checkout 2":5},"2026-06-23":{"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp primeira resposta":2,"Whatsapp enviado - Aguardando Checkout 1":1,"whatsapp_retorno":1,"__conv":1},"2026-06-24":{"Whatsapp primeira resposta":18,"Whatsapp enviado - Lead Qualificado 1":2,"__calc":13,"whatsapp_retorno":3,"__conv":1},"2026-06-25":{"__calc":8,"Whatsapp primeira resposta":14,"whatsapp_retorno":2,"__conv":1,"Whatsapp enviado - Lead Qualificado 2":2,"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-26":{"__calc":14,"Whatsapp primeira resposta":20,"Whatsapp enviado - Lead Qualificado 1":1},"2026-06-27":{"Whatsapp primeira resposta":10,"__calc":8,"Whatsapp enviado - Lead Qualificado 1":2,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-06-28":{"__calc":16,"Whatsapp primeira resposta":16},"2026-06-29":{"__calc":46,"Whatsapp primeira resposta":16,"Whatsapp enviado - Lead Qualificado 1":2,"Whatsapp enviado - Lead Qualificado 2":3,"whatsapp_retorno":3,"__conv":2,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-06-30":{"__calc":22,"Whatsapp enviado - Lead Qualificado 2":2,"Whatsapp primeira resposta":8,"Whatsapp enviado - Aguardando Checkout 1":2,"whatsapp_retorno":2,"__conv":1},"2026-07-01":{"__calc":28,"Whatsapp primeira resposta":12,"Whatsapp enviado - Lead Qualificado 1":2,"whatsapp_retorno":5,"__conv":1,"Whatsapp enviado - Aguardando Checkout 2":2},"2026-07-02":{"__calc":21,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp primeira resposta":15,"Whatsapp enviado - Lead Qualificado 2":2,"whatsapp_retorno":8,"__conv":3},"2026-07-03":{"__calc":9,"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp primeira resposta":6,"whatsapp_retorno":2,"__conv":1},"2026-07-04":{"Whatsapp primeira resposta":12,"Whatsapp enviado - Lead Qualificado 1":1},"2026-07-05":{"Whatsapp primeira resposta":12,"__calc":13,"Whatsapp enviado - Aguardando Checkout 1":3},"2026-07-06":{"__calc":23,"Whatsapp primeira resposta":8,"Whatsapp enviado - Aguardando Checkout 2":3,"whatsapp_retorno":4,"__conv":2,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 2":1},"2026-07-07":{"__calc":19,"Whatsapp enviado - Aguardando Checkout 1":2,"Whatsapp primeira resposta":24,"whatsapp_retorno":4,"__conv":3,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-07-08":{"__calc":17,"Whatsapp enviado - Aguardando Checkout 2":2,"Whatsapp enviado - Aguardando Checkout 1":3,"Whatsapp primeira resposta":6},"2026-07-09":{"__calc":20,"Whatsapp enviado - Lead Qualificado 1":3,"Whatsapp primeira resposta":10,"Whatsapp enviado - Aguardando Checkout 2":3,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-07-10":{"__calc":17,"Whatsapp primeira resposta":12,"Whatsapp enviado - Lead Qualificado 2":3,"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp enviado - Lead Qualificado 1":2,"Whatsapp enviado - Aguardando Checkout 1":2,"whatsapp_retorno":4,"__conv":1,"Whatsapp proativo - Bem Vindo":1,"Whatsapp proativo - cliente preencheu":1},"2026-07-11":{"__calc":5,"Whatsapp primeira resposta":2,"Whatsapp proativo - Bem Vindo - Lembrete":1},"2026-07-12":{"__calc":5,"Whatsapp primeira resposta":9,"Whatsapp enviado - Lead Qualificado 1":1,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-07-13":{"__calc":15,"Whatsapp enviado - Lead Qualificado 2":1,"Whatsapp primeira resposta":18,"whatsapp_retorno":4,"__conv":2,"Whatsapp enviado - Lead Qualificado 1":1,"whatsapp proativo - analise aprovada":1,"Whatsapp enviado - Aguardando Checkout 2":2},"2026-07-14":{"__calc":6,"Whatsapp primeira resposta":16,"whatsapp_retorno":2,"__conv":1,"Whatsapp enviado - Aguardando Checkout 1":13,"Whatsapp proativo - Bem Vindo":1,"whatsapp proativo - analise aprovada":1,"Whatsapp enviado - Lead Qualificado 1":4,"Whatsapp enviado - Lead Qualificado 2":1,"whatsapp proativo - ok na recomendação":1,"whatsapp proativo - envio de recomendação":2},"2026-07-15":{"__calc":17,"Whatsapp enviado - Aguardando Checkout 1":2,"Whatsapp enviado - Aguardando Checkout 2":12,"Whatsapp enviado - Lead Qualificado 2":3,"whatsapp proativo - não deu ok na recomendação":2,"Whatsapp primeira resposta":12},"2026-07-16":{"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 1":5,"Whatsapp primeira resposta":26,"__calc":21,"Whatsapp enviado - Aguardando Checkout 2":2},"2026-07-17":{"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp enviado - Lead Qualificado 2":5,"__calc":16,"Whatsapp primeira resposta":24,"whatsapp_retorno":23,"__conv":11,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 1":1},"2026-07-18":{"Whatsapp enviado - Aguardando Checkout 1":1,"__calc":13,"Whatsapp primeira resposta":7,"Whatsapp enviado - Lead Qualificado 1":4},"2026-07-19":{"__calc":4,"Whatsapp primeira resposta":14,"Whatsapp enviado - Aguardando Checkout 1":3,"Whatsapp enviado - Lead Qualificado 1":2,"Whatsapp enviado - Lead Qualificado 2":1},"2026-07-20":{"Whatsapp enviado - Aguardando Checkout 2":5,"__calc":30,"Whatsapp primeira resposta":16,"Whatsapp enviado - Aguardando Checkout 1":2,"Whatsapp enviado - Lead Qualificado 1":5,"whatsapp_retorno":22,"__conv":13,"Whatsapp enviado - Lead Qualificado 2":6},"2026-07-21":{"__calc":18,"Whatsapp primeira resposta":9,"Whatsapp enviado - Lead Qualificado 1":5,"Whatsapp enviado - Aguardando Checkout 2":2,"Whatsapp enviado - Lead Qualificado 2":5,"Whatsapp enviado - Aguardando Checkout 1":1,"whatsapp_retorno":75,"__conv":41},"2026-07-22":{"__calc":19,"Whatsapp enviado - Lead Qualificado 2":5,"Whatsapp primeira resposta":14,"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp enviado - Lead Qualificado 1":6,"whatsapp_retorno":5,"__conv":3},"2026-07-23":{"Whatsapp primeira resposta":10,"__calc":6,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 2":6,"whatsapp_retorno":4,"__conv":2},"2026-07-24":{"Whatsapp primeira resposta":44,"__calc":3,"Whatsapp enviado - Aguardando Checkout 2":1,"whatsapp_retorno":8,"__conv":7,"Whatsapp enviado - Lead Qualificado 1":1},"2026-07-25":{"Whatsapp primeira resposta":16,"Whatsapp enviado - Lead Qualificado 1":2,"__calc":9,"whatsapp_retorno":1,"__conv":1},"2026-07-26":{"Whatsapp primeira resposta":14,"__calc":12},"2026-07-27":{"__calc":31,"Whatsapp enviado - Lead Qualificado 2":3,"whatsapp_retorno":35,"__conv":27,"Whatsapp primeira resposta":17,"Whats - Promo Combo":27,"whatsapp proativo - registro concluído":1,"whatsapp proativo - docs assinados":1},"2026-07-28":{"__calc":19,"Whatsapp primeira resposta":11,"whatsapp_retorno":14,"__conv":13},"2026-07-29":{"__calc":23,"Whatsapp primeira resposta":5,"whatsapp_retorno":2,"__conv":2,"Whatsapp enviado - Lead Qualificado 1":1,"whatsapp proativo - pesquisa satisfação":1},"2026-07-30":{"Whatsapp primeira resposta":15,"__calc":17,"whatsapp_retorno":11,"__conv":9,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 2":1},"2026-07-31":{"Whatsapp primeira resposta":12,"__calc":10,"Whatsapp enviado - Aguardando Checkout 2":1,"whatsapp_retorno":105,"__conv":46,"Whatsapp enviado - Lead Qualificado 1":1},"2026-08-01":{"Whatsapp primeira resposta":9,"__calc":3,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-08-02":{"__calc":6,"Whatsapp primeira resposta":3},"2026-08-03":{"__calc":17,"Whatsapp primeira resposta":4,"whatsapp_retorno":2,"__conv":2,"Whatsapp enviado - Lead Qualificado 1":3,"Whatsapp proativo - Bem Vindo":1,"Whatsapp enviado - Lead Qualificado 2":1,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-08-04":{"__calc":8,"Whatsapp primeira resposta":6,"whatsapp proativo - ok na recomendação":1,"Whatsapp proativo - Bem Vindo - Lembrete":1,"whatsapp_retorno":1,"__conv":1,"Whatsapp enviado - Lead Qualificado 2":1,"whatsapp proativo - analise aprovada":1},"2026-08-05":{"Whatsapp primeira resposta":6,"whatsapp proativo - ok na recomendação":1,"__calc":11,"whatsapp proativo - envio de recomendação":1},"2026-08-06":{"__calc":16,"Whatsapp primeira resposta":6,"whatsapp proativo - não deu ok na recomendação":1,"whatsapp_retorno":2,"__conv":1},"2026-08-07":{"__calc":13,"Whatsapp primeira resposta":5},"2026-08-08":{"__calc":3,"Whatsapp primeira resposta":1},"2026-08-09":{"__calc":4,"Whatsapp primeira resposta":8,"Whatsapp enviado - Lead Qualificado 1":1,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-08-10":{"__calc":10,"Whatsapp primeira resposta":3,"whatsapp_retorno":1,"__conv":1,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 1":2,"Whatsapp proativo - Bem Vindo":1,"Whatsapp enviado - Lead Qualificado 2":1,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-08-11":{"Whatsapp primeira resposta":3,"Whatsapp enviado - Aguardando Checkout 1":1,"__calc":3,"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp proativo - Bem Vindo - Lembrete":1,"Whatsapp enviado - Lead Qualificado 2":1,"Whatsapp proativo - cliente preencheu":1,"whatsapp proativo - analise aprovada":1,"whatsapp_retorno":1,"__conv":1},"2026-08-12":{"Whatsapp enviado - Aguardando Checkout 2":1,"__calc":6,"Whatsapp enviado - Aguardando Checkout 1":2,"whatsapp proativo - envio de recomendação":1,"Whatsapp primeira resposta":3},"2026-08-13":{"__calc":9,"Whatsapp primeira resposta":3,"Whatsapp enviado - Aguardando Checkout 2":2,"whatsapp proativo - não deu ok na recomendação":1,"whatsapp_retorno":72,"__conv":45,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-08-14":{"__calc":4,"whatsapp_retorno":2,"__conv":2,"Whatsapp primeira resposta":2},"2026-08-15":{"__calc":1,"Whatsapp primeira resposta":2},"2026-08-16":{"__calc":8,"Whatsapp primeira resposta":4,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-08-17":{"__calc":14,"Whatsapp enviado - Lead Qualificado 1":1,"Whatsapp primeira resposta":2,"whatsapp proativo - registro concluído":1,"whatsapp proativo - ok na recomendação":3},"2026-08-18":{"Whatsapp primeira resposta":2,"__calc":14,"Whatsapp enviado - Aguardando Checkout 1":1,"Whatsapp enviado - Lead Qualificado 2":1,"whatsapp_retorno":160,"__conv":135},"2026-08-19":{"__calc":13,"Whatsapp enviado - Aguardando Checkout 2":1},"2026-08-20":{"__calc":9,"Whatsapp primeira resposta":3,"whatsapp_retorno":1,"__conv":1},"2026-08-21":{"__calc":12,"Whatsapp primeira resposta":5,"whatsapp_retorno":1,"__conv":1},"2026-08-22":{"__calc":8,"Whatsapp enviado - Aguardando Checkout 1":1},"2026-08-23":{"__calc":11,"Whatsapp primeira resposta":4},"2026-08-24":{"__calc":29,"Whatsapp enviado - Aguardando Checkout 2":1,"Whatsapp enviado - Lead Qualificado 1":1,"whatsapp_retorno":4,"__conv":3,"Whatsapp primeira resposta":3,"whatsapp proativo - registro concluído":1,"whatsapp proativo - docs assinados":1},"2026-08-25":{"__calc":7,"Whatsapp primeira resposta":3,"Whatsapp enviado - Lead Qualificado 2":1,"whatsapp_retorno":4,"__conv":2}};
+const FUNIL={
+ "2026-08-20":[["Abertura de Empresa_Calculadora",613.04,571,501,127,127],
+  ["Holding",527.94,754,731,0,0],
+  ["Abertura de Empresa_Remarketing_Checkout",369.78,289,254,1,0],
+  ["Abertura de Empresa_Checkout",190.46,302,229,2,1]],
+ "2026-08-13":[["Abertura de Empresa_Calculadora",692.39,587,524,100,106],
+  ["Holding",786.25,1330,570,0,0],
+  ["Abertura de Empresa_Checkout",379.37,274,232,4,1],
+  ["Promoção: Contabilidade + Abertura",191.57,110,99,2,1],
+  ["Abertura de Empresa_Remarketing_Checkout",69.02,41,38,0,0]],
+ "2026-08-06":[["Holding",688.76,1181,112,2,1],
+  ["Promoção: Contabilidade + Abertura",670.29,262,189,0,1],
+  ["Abertura de Empresa_Calculadora",418.47,415,335,0,65],
+  ["Abertura de Empresa_Checkout",398.19,127,95,4,3]]};
 const SEMCAMP={
  "2026-08-20":[["Abertura de Empresa_Calculadora",553.15,504,27442,112],["Holding",498.14,713,15569,0],
    ["Abertura de Empresa_Remarketing_Checkout",352.02,277,7725,0],["Abertura de Empresa_Checkout",175.50,289,4910,2]],
@@ -736,9 +602,14 @@ const MEDIA={
  "2026-03":{g:10404,m:16709,s:5708},"2026-04":{g:10376,m:14899,s:7213},
  "2026-05":{g:13861,m:4846,s:6319},"2026-06":{g:10151,m:7606,s:3370},
  "2026-07":{g:23846,m:10713,s:9609},"2026-08":{g:6632,m:5144,s:1421}};
+const MLEADS={"2025-07":0,"2025-08":2,"2025-09":7,"2025-10":118,"2025-11":134,"2025-12":55,
+ "2026-01":458,"2026-02":140,"2026-03":97,"2026-04":244,"2026-05":90,"2026-06":64,"2026-07":108,"2026-08":89};
 const GCPC={"2026-03":0.88,"2026-04":0.66,"2026-05":1.27,"2026-06":2.01,"2026-07":0.33,"2026-08":10.43};
 const MCPL={"2025-12":115.30,"2026-01":12.70,"2026-02":48.73,"2026-03":172.25,"2026-04":61.06,
             "2026-05":53.84,"2026-06":118.84,"2026-07":99.19,"2026-08":57.80};
+const FCDIA={"2026-07-18":8,"2026-07-17":11,"2026-06-12":2,"2026-06-17":7,"2026-07-16":15,"2026-07-15":9,"2026-07-14":10,"2026-07-13":8,"2026-07-12":6,"2026-07-25":15,"2026-07-24":43,"2026-07-23":14,"2026-07-22":13,"2026-07-21":8,"2026-07-20":9,"2026-07-19":14,"2026-07-11":2,"2026-07-10":6,"2026-07-09":6,"2026-07-08":4,"2026-07-07":11,"2026-06-28":14,"2026-07-06":6,"2026-07-05":7,"2026-07-31":12,"2026-07-30":15,"2026-07-29":5,"2026-07-28":11,"2026-07-27":12,"2026-07-26":14,"2026-07-04":6,"2026-07-03":3,"2026-07-02":8,"2026-07-01":6,"2026-08-01":9,"2026-08-15":2,"2026-08-14":1,"2026-08-13":2,"2026-08-12":4,"2026-08-11":3,"2026-08-10":3,"2026-08-09":9,"2026-08-08":1,"2026-08-07":5,"2026-08-06":6,"2026-08-05":6,"2026-08-04":6,"2026-08-03":4,"2026-08-02":3,"2026-08-25":4,"2026-08-24":3,"2026-08-23":4,"2026-08-21":4,"2026-08-20":3,"2026-08-18":2,"2026-08-17":2,"2026-08-16":4,"2026-06-05":1,"2026-06-03":1,"2026-06-02":1,"2026-06-01":1,"2026-06-13":1,"2026-06-10":1,"2026-06-07":1,"2026-06-27":5,"2026-06-26":11,"2026-06-25":6,"2026-06-24":9,"2026-06-23":1,"2026-06-22":2,"2026-06-21":7,"2026-06-30":4,"2026-06-29":8,"2026-06-20":4,"2026-06-19":1,"2026-06-18":8,"2026-06-16":4,"2026-06-15":1,"2026-06-14":2};
+const FCTEMA_D={"2026-07-18":{"No Response":3,"Unqualified / Irrelevant Leads":1,"Not Interested / Declined":1,"Initial Questions":1},"2026-07-17":{"No Response":4,"Initial Questions":2,"Unqualified / Irrelevant Leads":3},"2026-07-16":{"No Response":6,"Follow-Up Needed":4,"Initial Questions":2},"2026-07-15":{"Unqualified / Irrelevant Leads":2,"Follow-Up Needed":2,"Not Interested / Declined":1,"No Response":1},"2026-07-14":{"No Response":2,"Initial Questions":3,"Follow-Up Needed":1,"Not Interested / Declined":1},"2026-07-13":{"No Response":3,"Follow-Up Needed":2,"Not Interested / Declined":1,"Initial Questions":1},"2026-07-12":{"No Response":3,"Follow-Up Needed":1},"2026-07-25":{"Not Interested / Declined":1,"Unqualified / Irrelevant Leads":9,"No Response":5},"2026-07-24":{"No Response":36,"Unqualified / Irrelevant Leads":5,"Meeting Scheduled":1},"2026-07-23":{"No Response":9,"Unqualified / Irrelevant Leads":1},"2026-07-22":{"Not Interested / Declined":2,"Follow-Up Needed":1,"Initial Questions":1,"No Response":7,"Unqualified / Irrelevant Leads":1},"2026-07-21":{"No Response":3,"Unqualified / Irrelevant Leads":2,"Not Interested / Declined":1,"Initial Questions":1},"2026-07-20":{"Unqualified / Irrelevant Leads":4,"No Response":4},"2026-07-19":{"Unqualified / Irrelevant Leads":4,"No Response":10},"2026-07-11":{"No Response":1},"2026-07-10":{"Converted Clients":1,"Unqualified / Irrelevant Leads":1,"No Response":3,"Initial Questions":1},"2026-07-09":{"Unqualified / Irrelevant Leads":1,"No Response":2},"2026-07-08":{"No Response":2,"Partner Referrals":1},"2026-07-07":{"No Response":8,"Initial Questions":1,"Follow-Up Needed":1},"2026-06-28":{"Meeting Scheduled":2,"Initial Questions":3,"Not Interested / Declined":3,"No Response":2},"2026-07-06":{"No Response":3,"Follow-Up Needed":1},"2026-07-05":{"Unqualified / Irrelevant Leads":1,"No Response":4,"Not Interested / Declined":1},"2026-07-31":{"Converted Clients":1,"Unqualified / Irrelevant Leads":3,"Initial Questions":1,"No Response":4,"Follow-Up Needed":1},"2026-07-30":{"No Response":8,"Initial Questions":2,"Follow-Up Needed":2,"Unqualified / Irrelevant Leads":3},"2026-07-29":{"Not Interested / Declined":2,"Initial Questions":2,"No Response":1},"2026-07-28":{"Initial Questions":1,"No Response":8,"Unqualified / Irrelevant Leads":1},"2026-07-27":{"No Response":3,"Unqualified / Irrelevant Leads":6,"Cliente":1,"Converted Clients":1,"Follow-Up Needed":1},"2026-07-26":{"No Response":8,"Not Interested / Declined":2,"Unqualified / Irrelevant Leads":4},"2026-07-04":{"No Response":5,"Follow-Up Needed":1},"2026-07-03":{"Initial Questions":2,"Follow-Up Needed":1},"2026-07-02":{"Unqualified / Irrelevant Leads":2,"No Response":3},"2026-07-01":{"Initial Questions":3,"Unqualified / Irrelevant Leads":1,"No Response":1},"2026-08-01":{"Initial Questions":2,"Meeting Scheduled":1,"No Response":1,"Unqualified / Irrelevant Leads":2,"Not Interested / Declined":1,"Follow-Up Needed":2},"2026-08-15":{"Follow-Up Needed":1,"No Response":1},"2026-08-13":{"No Response":1,"Initial Questions":1},"2026-08-12":{"No Response":2,"Initial Questions":1},"2026-08-11":{"Initial Questions":2,"No Response":1},"2026-08-10":{"No Response":2,"Initial Questions":1},"2026-08-09":{"No Response":6,"Not Interested / Declined":1,"Initial Questions":1,"Meeting Scheduled":1},"2026-08-08":{"No Response":1},"2026-08-07":{"No Response":3,"Initial Questions":2},"2026-08-06":{"No Response":2,"Initial Questions":2,"Follow-Up Needed":1},"2026-08-05":{"Initial Questions":5,"No Response":1},"2026-08-04":{"Meeting Scheduled":1,"No Response":2,"Converted Clients":1,"Initial Questions":1,"Not Interested / Declined":1},"2026-08-03":{"No Response":2,"Meeting Scheduled":1,"Initial Questions":1},"2026-08-02":{"No Response":1},"2026-08-24":{"Initial Questions":2,"Unqualified / Irrelevant Leads":1},"2026-08-25":{"No Response":1,"Initial Questions":1},"2026-08-23":{"No Response":1,"Follow-Up Needed":1,"Unqualified / Irrelevant Leads":2},"2026-08-21":{"No Response":1,"Unqualified / Irrelevant Leads":2,"Initial Questions":1},"2026-08-20":{"Unqualified / Irrelevant Leads":1,"No Response":1},"2026-08-18":{"No Response":1},"2026-08-17":{"No Response":2},"2026-08-16":{"Unqualified / Irrelevant Leads":1,"No Response":2,"Initial Questions":1},"2026-06-27":{"No Response":2,"Unqualified / Irrelevant Leads":2},"2026-06-26":{"No Response":3,"Unqualified / Irrelevant Leads":4,"Follow-Up Needed":2,"Meeting Scheduled":1},"2026-06-25":{"Initial Questions":1,"No Response":1,"Unqualified / Irrelevant Leads":3,"Meeting Scheduled":1},"2026-06-24":{"No Response":2,"Initial Questions":1,"Unqualified / Irrelevant Leads":1},"2026-06-23":{"No Response":1},"2026-06-22":{"No Response":2},"2026-06-21":{"No Response":3,"Unqualified / Irrelevant Leads":4},"2026-06-30":{"No Response":1,"Unqualified / Irrelevant Leads":2,"Initial Questions":1},"2026-06-29":{"Unqualified / Irrelevant Leads":1,"Initial Questions":2,"No Response":2,"Not Interested / Declined":1},"2026-06-20":{"No Response":3,"Unqualified / Irrelevant Leads":1},"2026-06-18":{"No Response":4,"Meeting Scheduled":1},"2026-06-17":{"Follow-Up Needed":1,"No Response":1,"Converted Clients":1},"2026-06-16":{"Initial Questions":1,"Not Interested / Declined":1}};
+const FCORIG_D={"2026-07-18":{"Abertura de Empresa":6},"2026-07-17":{"Abertura de Empresa":3,"Modelo de Abertura":2,"Company Incorporation":4},"2026-07-16":{"Abertura de Empresa":7,"Modelo de Abertura":2,"Company Incorporation":3},"2026-07-15":{"Abertura de Empresa":3,"Modelo de Abertura":2,"Holding":1},"2026-07-14":{"Company Incorporation":2,"Abertura de Empresa":5},"2026-07-13":{"Abertura de Empresa":5,"Modelo de Abertura":1,"Company Incorporation":1},"2026-07-12":{"Abertura de Empresa":3,"Company Incorporation":1},"2026-07-25":{"Promo Contabilidade":15},"2026-07-24":{"Abertura de Empresa":4,"Promo Contabilidade":38},"2026-07-23":{"Promo Contabilidade":7,"Abertura de Empresa":2,"Company Incorporation":1},"2026-07-22":{"Modelo de Abertura":3,"Abertura de Empresa":4,"Company Incorporation":5},"2026-07-21":{"Modelo de Abertura":1,"Company Incorporation":2,"Abertura de Empresa":4},"2026-07-20":{"Abertura de Empresa":3,"Company Incorporation":5},"2026-07-19":{"Abertura de Empresa":6,"Company Incorporation":8},"2026-07-11":{"Abertura de Empresa":1},"2026-07-10":{"Abertura de Empresa":6},"2026-07-09":{"Abertura de Empresa":3},"2026-07-08":{"Abertura de Empresa":3},"2026-07-07":{"Abertura de Empresa":10},"2026-06-28":{"Abertura de Empresa":7,"Modelo de Abertura":1},"2026-07-06":{"Abertura de Empresa":4},"2026-07-05":{"Abertura de Empresa":6},"2026-07-31":{"Modelo de Abertura":1,"Abertura de Empresa":2,"Promo Contabilidade":8},"2026-07-30":{"Promo Contabilidade":8,"Abertura de Empresa":7},"2026-07-29":{"Modelo de Abertura":4,"Abertura de Empresa":1},"2026-07-28":{"Modelo de Abertura":2,"Promo Contabilidade":8},"2026-07-27":{"Promo Contabilidade":7,"Modelo de Abertura":3,"Abertura de Empresa":1,"Holding":1},"2026-07-26":{"Abertura de Empresa":1,"Promo Contabilidade":13},"2026-07-04":{"Abertura de Empresa":6},"2026-07-03":{"Abertura de Empresa":3},"2026-07-02":{"Abertura de Empresa":5},"2026-07-01":{"Abertura de Empresa":4},"2026-08-01":{"Promo Contabilidade":6,"Abertura de Empresa":3},"2026-08-15":{"Abertura de Empresa":1,"Modelo de Abertura":1},"2026-08-13":{"Promo Contabilidade":1,"Modelo de Abertura":1},"2026-08-12":{"Promo Contabilidade":2,"Modelo de Abertura":1},"2026-08-11":{"Promo Contabilidade":2,"Abertura de Empresa":1},"2026-08-10":{"Abertura de Empresa":3},"2026-08-09":{"Abertura de Empresa":5,"Promo Contabilidade":2,"Modelo de Abertura":2},"2026-08-08":{"Promo Contabilidade":1},"2026-08-07":{"Promo Contabilidade":4,"Abertura de Empresa":1},"2026-08-06":{"Promo Contabilidade":1,"Modelo de Abertura":4},"2026-08-05":{"Modelo de Abertura":5,"Promo Contabilidade":1},"2026-08-04":{"Abertura de Empresa":1,"Promo Contabilidade":2,"Modelo de Abertura":3},"2026-08-03":{"Modelo de Abertura":2,"Promo Contabilidade":2},"2026-08-02":{"Promo Contabilidade":2,"Abertura de Empresa":1},"2026-08-25":{"Abertura de Empresa":3},"2026-08-24":{"Modelo de Abertura":1,"Abertura de Empresa":2},"2026-08-23":{"Modelo de Abertura":2,"Abertura de Empresa":2},"2026-08-21":{"Abertura de Empresa":3,"Modelo de Abertura":1},"2026-08-20":{"Abertura de Empresa":1,"Modelo de Abertura":2},"2026-08-18":{"Promo Contabilidade":1},"2026-08-17":{"Promo Contabilidade":2},"2026-08-16":{"Promo Contabilidade":2,"Abertura de Empresa":2},"2026-06-27":{"Abertura de Empresa":3},"2026-06-26":{"Abertura de Empresa":8,"Modelo de Abertura":1},"2026-06-25":{"Abertura de Empresa":4},"2026-06-24":{"Abertura de Empresa":3},"2026-06-23":{"Abertura de Empresa":1},"2026-06-22":{"Abertura de Empresa":2},"2026-06-21":{"Abertura de Empresa":3},"2026-06-30":{"Abertura de Empresa":2},"2026-06-29":{"Abertura de Empresa":4},"2026-06-20":{"Abertura de Empresa":3},"2026-06-18":{"Abertura de Empresa":4},"2026-06-17":{"Abertura de Empresa":2,"Company Incorporation":1},"2026-06-16":{"Abertura de Empresa":1}};
 const FRESH={"2026-06":{t:100,u:96,res:0},"2026-07":{t:319,u:305,res:0},"2026-08":{t:90,u:88,res:0}};
 const FCANAL={"2026-06":{"WHATSAPP_+5511999436522":83,"KwikLedgers Support":12,"kwikledgers":5},
  "2026-07":{"WHATSAPP_+5511999436522":284,"KwikLedgers Support":29,"kwikledgers":5,"Kwikledgers Holding":1},
@@ -765,7 +636,7 @@ const DESCARTE=["No Response","Unqualified / Irrelevant Leads","Not Interested /
 const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const HOJE="2026-08-25";
 const fmt=n=>Math.round(n).toLocaleString('pt-BR');
-const fmtU=n=>"US$ "+Math.round(n).toLocaleString('pt-BR');
+const fmtU=n=>"R$ "+Math.round(n).toLocaleString('pt-BR');
 const mlbl=m=>MESES[+m.slice(5,7)-1]+" "+m.slice(2,4);
 const dlbl=d=>d.slice(8,10)+"/"+d.slice(5,7);
 const addDays=(d,n)=>{const t=new Date(d+"T12:00:00Z");t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10);};
@@ -839,14 +710,14 @@ function somaMes(base,de,ate){
 
 /* ===== PIPEDRIVE ===== */
 function renderPipe(){
- const [de,ate]=F.pp, A=pipeAgg(de,ate), W=wonIn(de,ate);
+ const [de,ate]=F.pp, A=pipeAgg(de,ate);
  const T=Object.values(A).reduce((a,o)=>({n:a.n+o.n,open:a.open+o.open,lost:a.lost+o.lost,
    won:a.won+o.won,age:a.age+o.age,tage:a.tage+o.tage}),{n:0,open:0,lost:0,won:0,age:0,tage:0});
  const p8=A[8],st44=(p8.stage[44]||{}).open||0,st45=(p8.stage[45]||{}).open||0;
  kpi(document.getElementById('pp-kpis'),[
   {l:"Criados",v:fmt(T.n),s:"no período"},
   {l:"Ainda em aberto",v:fmt(T.open),c:T.n&&T.open/T.n>.9?'r':'',s:T.n?fmt(T.open/T.n*100)+"% dos criados":''},
-  {l:"Ganhos",v:fmt(T.won),c:'g',s:T.n?(T.won/T.n*100).toFixed(2)+"% de conversão":''},
+  {l:"Ganhos",v:fmt(T.won),c:'g',s:T.n?`${(T.won/T.n*100).toFixed(2)}% dos criados no período`:''},
   {l:"Parados na entrada",v:fmt(st44+st45),c:'o',s:"etapas 1 e 2 do funil BR"},
   {l:"Sem toque",v:T.n?fmt(T.tage/T.n)+" d":"—",c:T.n&&T.tage/T.n>90?'r':'',s:"média sem atualização"}
  ]);
@@ -883,22 +754,13 @@ function renderPipe(){
    <td>${fmt(c.pro)}</td><td>${fmt(c.disp)}</td><td class="${dup>1.5?'hi':''}">${dup?dup.toFixed(1)+'×':'—'}</td></tr>`;}).join('')
   :'<tr><td colspan="7">Sem registros de WhatsApp no período. O fluxo começou a gravar em abril de 2026.</td></tr>';
 
- const dias=Math.max((new Date(ate)-new Date(de))/864e5,1);
  const arr=[];
- if(st44+st45) arr.push({c:'r',h:`${fmt(st44+st45)} negócios travados antes do pagamento`,
-  p:`No período, <b>${fmt(st45)}</b> pararam em "Aguardando checkout" e <b>${fmt(st44)}</b> em "Leads qualificados". As duas etapas apodrecem em 1 dia e concentram <b>${fmt((st44+st45)/(p8.open||1)*100)}%</b> de tudo que está aberto no funil brasileiro.`});
- if(T.n) arr.push({c:T.won?'g':'r',h:T.won?`Cada ganho custou ${fmt(T.n/T.won)} negócios criados`:"Nenhum negócio ganho no período",
-  p:T.won?`<b>${fmt(T.won)}</b> ganhos para <b>${fmt(T.n)}</b> criados. Se a meta é uma venda por semana, o funil precisa gerar cerca de <b>${fmt(T.n/T.won)}</b> entradas por venda no ritmo atual.`
-        :`Foram <b>${fmt(T.n)}</b> negócios criados e nenhum fechamento. Vale conferir se os ganhos estão sendo marcados no CRM antes de concluir que não houve venda.`});
+ if(st44+st45) arr.push({c:'r',h:`${fmt(st45)} negócios parados antes do pagamento`,
+  p:`Em "Aguardando checkout", a etapa mais quente do funil. Outros <b>${fmt(st44)}</b> estão em "Leads qualificados".`});
  arr.push({c:T.n&&T.tage/T.n>90?'r':'a',h:"O estoque envelhece sem contato",
-  p:`Média de <b>${T.n?fmt(T.tage/T.n):'—'} dias</b> sem nenhuma atualização, contra <b>${T.n?fmt(T.age/T.n):'—'} dias</b> de idade. Na prática, a maioria entra e nunca mais é tocada.`});
- const ent=T.n/dias;
- arr.push({c:'',h:`Entram ${ent.toFixed(1)} negócios por dia`,
-  p:`<b>${fmt(T.n)}</b> em ${fmt(dias)} dias. Esse é o número que a mídia precisa sustentar — e o que caiu 92% entre maio e junho.`});
- if(A[10].n) arr.push({c:'o',h:"Jornada Reduzida é uma caixa de entrada",
-  p:`<b>${fmt(A[10].n)}</b> negócios entraram e <b>${fmt(A[10].open)}</b> seguem na primeira etapa. As outras quatro etapas do funil nunca foram usadas.`});
+  p:`Média de <b>${T.n?fmt(T.tage/T.n):'—'} dias</b> sem nenhuma atualização. A maioria entra e nunca mais é tocada.`});
  if(C.t.conv) arr.push({c:C.t.ret/C.t.conv>1.5?'r':'g',h:`Cada conversa vira ${(C.t.ret/C.t.conv).toFixed(1)} registros no CRM`,
-  p:`<b>${fmt(C.t.ret)}</b> registros para <b>${fmt(C.t.conv)}</b> conversas distintas. Qualquer métrica de atendimento tirada do Pipedrive sem deduplicar está inflada nessa proporção.`});
+  p:`<b>${fmt(C.t.ret)}</b> registros para <b>${fmt(C.t.conv)}</b> conversas distintas. Métrica de atendimento tirada do Pipedrive sem deduplicar está inflada nessa proporção.`});
  ins(document.getElementById('pp-ins'),arr);
 }
 
@@ -909,20 +771,21 @@ function renderMedia(){
  const [de,ate]=F.md, ms=mesesNo(de,ate,MEDIA);
  const temDia = de>=DIA0;
  let g=0,m=0,s=0,leads=0,cliques=0;
+ let gconv=0,gcli=0;
  if(temDia){
   m=somaD(METAD,de,ate,1); cliques=somaD(METAD,de,ate,2); leads=somaD(METAD,de,ate,4);
   s=somaD(GA4D,de,ate,1);
-  ms.forEach(k=>g+=MEDIA[k].g);
+  g=somaD(GADSD,de,ate,1); gcli=somaD(GADSD,de,ate,2); gconv=somaD(GADSD,de,ate,4);
  }else{
-  ms.forEach(k=>{g+=MEDIA[k].g;m+=MEDIA[k].m;s+=MEDIA[k].s;});
+  ms.forEach(k=>{g+=MEDIA[k].g;m+=MEDIA[k].m;s+=MEDIA[k].s;leads+=(MLEADS[k]||0);});
  }
  const A=pipeAgg(de,ate), deals=Object.values(A).reduce((a,o)=>a+o.n,0);
  kpi(document.getElementById('md-kpis'),[
   {l:"Meta Ads",v:fmtU(m),s:temDia?"dia a dia":"agregado por mês"},
-  {l:"Leads no Meta",v:temDia?fmt(leads):"—",c:'o',s:temDia&&leads?fmtU(m/leads)+" por lead":''},
+  {l:"Conversões Meta",v:fmt(leads),c:'o',s:leads?fmtU(m/leads)+" por conversão":'sem conversão no período'},
   {l:"Sessões GA4",v:fmt(s),s:temDia?"dia a dia":"agregado por mês"},
   {l:"Negócios no CRM",v:fmt(deals),s:"mesmo período"},
-  {l:"Google Ads",v:g?fmtU(g):"—",c:'r',s:"bloqueado desde 25/08"}
+  {l:"Google Ads",v:g?fmtU(g):"—",s:temDia&&gconv?`${fmt(gconv)} conversões · ${fmtU(g/gconv)} cada`:"agregado por mês"}
  ]);
 
  const S=serieMedia(de,ate,temDia);
@@ -932,19 +795,23 @@ function renderMedia(){
  // tabela: dia a dia quando cabe, senão mês
  const th=document.getElementById('md-tab-h');
  if(S.porDia){
-  th.innerHTML='<th>Dia</th><th>Meta US$</th><th>Cliques</th><th>Impressões</th><th>Leads</th><th>US$/lead</th><th>Sessões</th><th>Negócios CRM</th>';
+  th.innerHTML='<th>Dia</th><th>Meta R$</th><th>Leads</th><th>R$/lead</th><th>Google R$</th><th>Conv. Google</th><th>R$/conv.</th><th>Sessões</th><th>Negócios CRM</th>';
   const dias=METAD.filter(r=>r[0]>=de&&r[0]<=ate);
   const gaMap={}; GA4D.forEach(r=>gaMap[r[0]]=r[1]);
+  const gdMap={}; GADSD.forEach(r=>gdMap[r[0]]=r);
   const dMap={}; DATA.PD.forEach(([p,d,st,s2,n])=>{if(d>=de&&d<=ate)dMap[d]=(dMap[d]||0)+n;});
   document.getElementById('md-tab').innerHTML=dias.map(r=>{
    const cpl=r[4]?r[1]/r[4]:null;
-   return `<tr><td>${dlbl(r[0])}</td><td>${r[1].toFixed(2)}</td><td>${fmt(r[2])}</td><td>${fmt(r[3])}</td>
+   const gd=gdMap[r[0]]; const gc=gd&&gd[4]?gd[1]/gd[4]:null;
+   return `<tr><td>${dlbl(r[0])}</td><td>${r[1].toFixed(2)}</td>
     <td class="${r[4]?'lo':''}">${fmt(r[4])}</td>
     <td class="${cpl&&cpl>100?'hi':cpl&&cpl<40?'lo':''}">${cpl?cpl.toFixed(2):'—'}</td>
+    <td>${gd?gd[1].toFixed(2):'—'}</td><td class="${gd&&gd[4]?'':'hi'}">${gd?fmt(gd[4]):'—'}</td>
+    <td class="${gc&&gc>150?'hi':''}">${gc?gc.toFixed(2):'—'}</td>
     <td>${fmt(gaMap[r[0]]||0)}</td><td>${fmt(dMap[r[0]]||0)}</td></tr>`;}).join('')
-    ||'<tr><td colspan="8">Sem dados no período.</td></tr>';
+    ||'<tr><td colspan="9">Sem dados no período.</td></tr>';
  }else{
-  th.innerHTML='<th>Mês</th><th>Google</th><th>Meta</th><th>Total</th><th>Δ investimento</th><th>Negócios CRM</th><th>Δ negócios</th><th>US$/negócio</th><th>Δ custo</th><th>Sessões</th>';
+  th.innerHTML='<th>Mês</th><th>Google</th><th>Meta</th><th>Total</th><th>Δ investimento</th><th>Negócios CRM</th><th>Δ negócios</th><th>R$/negócio</th><th>Δ custo</th><th>Sessões</th>';
   const all=Object.keys(MEDIA).sort();
   document.getElementById('md-tab').innerHTML=ms.map(k=>{
    const c=MEDIA[k],tot=c.g+c.m,i=all.indexOf(k),pk=all[i-1];
@@ -967,15 +834,15 @@ function renderMedia(){
    <td class="${cpl&&cpl>100?'hi':cpl&&cpl<40?'lo':''}">${cpl?cpl.toFixed(2):'—'}</td></tr>`;}).join('');
 
  bars(document.getElementById('md-gcpc'),
-  Object.keys(GCPC).filter(k=>ms.includes(k)).map(k=>[mlbl(k),GCPC[k],GCPC[k]>5?'r':GCPC[k]<1?'g':'b',"US$"]));
+  Object.keys(GCPC).filter(k=>ms.includes(k)).map(k=>[mlbl(k),GCPC[k],GCPC[k]>5?'r':GCPC[k]<1?'g':'b',"R$"]));
  bars(document.getElementById('md-mcpl'),
-  Object.keys(MCPL).filter(k=>ms.includes(k)).map(k=>[mlbl(k),Math.round(MCPL[k]),MCPL[k]>110?'r':MCPL[k]<40?'g':'b',"US$"]));
+  Object.keys(MCPL).filter(k=>ms.includes(k)).map(k=>[mlbl(k),Math.round(MCPL[k]),MCPL[k]>110?'r':MCPL[k]<40?'g':'b',"R$"]));
 
  const arr=[];
  if(temDia&&leads){
   const cpl=m/leads;
   arr.push({c:cpl>100?'r':'g',h:`Cada lead do Meta custou ${fmtU(cpl)}`,
-   p:`<b>${fmtU(m)}</b> investidos e <b>${fmt(leads)}</b> leads no período. Com ticket de US$ 650, o lead precisa converter acima de <b>${(cpl/650*100).toFixed(1)}%</b> só para pagar a mídia.`});
+   p:`<b>${fmtU(m)}</b> investidos e <b>${fmt(leads)}</b> conversões do pixel no período.`});
   const ago=METAD.filter(r=>r[0]>="2026-08-14"), pre=METAD.filter(r=>r[0]>="2026-07-14"&&r[0]<="2026-08-13");
   const la=ago.reduce((a,r)=>a+r[4],0), lp=pre.reduce((a,r)=>a+r[4],0);
   if(la&&lp) arr.push({c:'g',h:`Os leads dispararam a partir de 14 de agosto`,
@@ -983,12 +850,16 @@ function renderMedia(){
  }
  if(deals) arr.push({c:'a',h:`O site traz ${fmt(s/Math.max(deals,1))} sessões por negócio criado`,
   p:`<b>${fmt(s)}</b> sessões e <b>${fmt(deals)}</b> negócios. A perda está entre a landing page e o cadastro, não na compra de mídia.`});
- arr.push({c:'r',h:"Google Ads fora do ar desde 25/08",
-  p:`O plano Basic do Windsor.ai comporta duas fontes e o Google Ads ficou de fora. Os números do Google no painel vão até agosto e não atualizam — Meta e GA4 seguem ao vivo.`});
- arr.push({c:'o',h:"A Calculadora é a campanha mais eficiente",
-  p:`<b>US$ 8.400</b> geraram <b>216</b> leads a <b>US$ 38,89</b> cada. O Checkout gastou <b>US$ 10.216</b> para <b>154</b> leads, a <b>US$ 66,34</b> — 71% mais caro.`});
- arr.push({c:'r',h:"Holding gasta e não gera",
-  p:`<b>US$ 1.973</b> e <b>3.224</b> cliques produziram <b>2</b> leads no trimestre — <b>US$ 986</b> por lead. É a campanha com maior volume de cliques e o pior retorno da conta.`});
+ if(temDia&&gconv) arr.push({c:g/gconv>150?'r':'a',h:`Google: ${fmtU(g/gconv)} por conversão`,
+  p:`<b>${fmtU(g)}</b> e <b>${fmt(gconv)}</b> conversões no período. Em 17/07 o Google fez <b>432</b> conversões num único dia; a partir de 25/07 caiu para menos de dez por dia. A campanha mudou de escala, não só de custo.`});
+ const camps=METACAMP.map(r=>({n:r[0].replace('(BRA)_',''),sp:r[1],cl:r[2],ld:r[4],
+   cpl:r[4]?r[1]/r[4]:Infinity})).sort((x,y)=>x.cpl-y.cpl);
+ const melhor=camps[0], pior=camps[camps.length-1];
+ if(melhor&&melhor.ld) arr.push({c:'g',h:`${melhor.n} é a campanha mais eficiente`,
+  p:`<b>${fmtU(melhor.sp)}</b> geraram <b>${fmt(melhor.ld)}</b> leads, a <b>${fmtU(melhor.cpl)}</b> cada. Números do acumulado de junho a agosto, não do período filtrado.`});
+ if(pior&&pior.ld===0) arr.push({c:'r',h:`${pior.n} gasta e não gera`,
+  p:`<b>${fmtU(pior.sp)}</b> e <b>${fmt(pior.cl)}</b> cliques sem nenhum lead no trimestre. É a campanha com pior retorno da conta.`});
+ 
  arr.push({c:'',h:"Sem UTM, não há atribuição",
   p:`Nenhum negócio do Pipedrive carrega campanha ou id de clique. As colunas de mídia e CRM estão na mesma linha do tempo, nunca ligadas entre si.`});
  ins(document.getElementById('md-ins'),arr);
@@ -996,7 +867,9 @@ function renderMedia(){
 function serieMedia(de,ate,temDia){
  const dias=(new Date(ate)-new Date(de))/864e5;
  if(temDia&&dias<=62){
-  return {porDia:true,rows:METAD.filter(r=>r[0]>=de&&r[0]<=ate).map(r=>({v:r[1],l:dlbl(r[0]),t:fmt(r[1])}))};
+  const gm={}; GADSD.forEach(r=>gm[r[0]]=r[1]);
+  return {porDia:true,rows:METAD.filter(r=>r[0]>=de&&r[0]<=ate).map(r=>
+    ({v:r[1]+(gm[r[0]]||0),l:dlbl(r[0]),t:fmt(r[1]+(gm[r[0]]||0))}))};
  }
  const ms=mesesNo(de,ate,MEDIA);
  return {porDia:false,rows:ms.map(k=>({v:MEDIA[k].g+MEDIA[k].m,l:mlbl(k),t:fmt((MEDIA[k].g+MEDIA[k].m)/1000)+"k"}))};
@@ -1005,17 +878,23 @@ function serieMedia(de,ate,temDia){
 /* ===== FRESHCHAT ===== */
 function renderFresh(){
  const [de,ate]=F.fc, ms=mesesNo(de,ate,FRESH);
- const t=ms.reduce((a,k)=>a+FRESH[k].t,0), u=ms.reduce((a,k)=>a+FRESH[k].u,0);
+ const dias=Object.keys(FCDIA).filter(k=>k>=de&&k<=ate);
+ const t=dias.reduce((a,k)=>a+FCDIA[k],0);
+ const u=Math.round(t*0.957);
  const C=crmAgg(de,ate);
- const tm=somaMes(FTEMA_M,de,ate), tsum=tm.reduce((a,r)=>a+r[1],0);
- const om=somaMes(FORIGEM_M,de,ate), osum=om.reduce((a,r)=>a+r[1],0);
+ const somaDia=base=>{const o={};
+   Object.keys(base).filter(k=>k>=de&&k<=ate).forEach(k=>
+    Object.entries(base[k]).forEach(([a2,v])=>o[a2]=(o[a2]||0)+v));
+   return Object.entries(o).sort((a2,b2)=>b2[1]-a2[1]);};
+ const tm=somaDia(FCTEMA_D), tsum=tm.reduce((a,r)=>a+r[1],0);
+ const om=somaDia(FCORIG_D), osum=om.reduce((a,r)=>a+r[1],0);
  const semResp=(tm.find(r=>r[0]==="No Response")||[0,0])[1];
  const pos=tm.filter(r=>POSITIVOS.includes(r[0])).reduce((a,r)=>a+r[1],0);
  const desc=tm.filter(r=>DESCARTE.includes(r[0])).reduce((a,r)=>a+r[1],0);
 
  kpi(document.getElementById('fc-kpis'),[
-  {l:"Conversas criadas",v:fmt(t),s:ms.map(mlbl).join(' · ')||'sem dados'},
-  {l:"Iniciadas pelo lead",v:fmt(u),s:t?fmt(u/t*100)+"% do total":''},
+  {l:"Conversas criadas",v:fmt(t),s:`${dias.length} dia${dias.length!==1?'s':''} com conversa`},
+  {l:"Iniciadas pelo lead",v:fmt(u),s:"96% do volume, medido em jul e ago"},
   {l:"Encerradas sem resposta",v:tsum?fmt(semResp/tsum*100)+"%":"—",c:'r',
    s:`${fmt(semResp)} de ${fmt(tsum)} conversas com tema preenchido`},
   {l:"Reuniões e conversões",v:fmt(pos),c:'g',s:"marcadas pelo atendimento no Freshchat"},
@@ -1023,8 +902,17 @@ function renderFresh(){
    s:t?`${fmt(C.t.conv/t*100)}% do volume do chat`:''}
  ]);
 
- cols(document.getElementById('fc-cols'),document.getElementById('fc-cols-lbl'),
-  ms.map(k=>({v:FRESH[k].t,l:mlbl(k)})));
+ const span=(new Date(ate)-new Date(de))/864e5;
+ if(span<=62){
+  cols(document.getElementById('fc-cols'),document.getElementById('fc-cols-lbl'),
+   dias.sort().map(k=>({v:FCDIA[k],l:dlbl(k)})));
+  document.getElementById('fc-gran').textContent='por dia';
+ }else{
+  const pm={}; dias.forEach(k=>{const m2=k.slice(0,7);pm[m2]=(pm[m2]||0)+FCDIA[k];});
+  cols(document.getElementById('fc-cols'),document.getElementById('fc-cols-lbl'),
+   Object.keys(pm).sort().map(k=>({v:pm[k],l:mlbl(k)})));
+  document.getElementById('fc-gran').textContent='por mês';
+ }
 
  // funil de atendimento ao lado do volume
  const et=[["Conversas criadas",t,'b'],["Iniciadas pelo lead",u,'b'],
@@ -1053,18 +941,11 @@ function renderFresh(){
 
  const arr=[];
  arr.push({c:'r',h:`${tsum?fmt(desc/tsum*100):0}% das conversas terminam sem avançar`,
-  p:`<b>${fmt(desc)}</b> de <b>${fmt(tsum)}</b> conversas classificadas foram marcadas como sem resposta, fora do perfil ou sem interesse. É a maior perda de toda a operação, e acontece antes de qualquer coisa chegar ao CRM.`});
+  p:`<b>${fmt(desc)}</b> de <b>${fmt(tsum)}</b> classificadas foram marcadas como sem resposta, fora do perfil ou sem interesse.`});
  arr.push({c:'a',h:"A espera real é de horas, não de minutos",
-  p:`O painel do Freshchat mostra <b>47 minutos</b> de primeira resposta porque conta só horário comercial. Em tempo corrido a média é <b>7h 19m</b> e 10% dos clientes esperam mais de <b>19 horas</b>. Medido em julho.`});
+  p:`Medição de 1 a 23 de julho: o painel do Freshchat mostra <b>47 minutos</b> porque conta só horário comercial, mas em tempo corrido a média é <b>7h 19m</b>.`});
  if(pos) arr.push({c:'g',h:`${fmt(pos)} conversas viraram reunião ou cliente`,
-  p:`Contra <b>${fmt(t)}</b> criadas — <b>${t?(pos/t*100).toFixed(1):0}%</b>. Esse é o topo real do funil comercial: cada reunião custa hoje cerca de <b>${fmt(t/pos)}</b> conversas atendidas.`});
- if(om.length) arr.push({c:'o',h:`${om[0][0]} concentra a demanda`,
-  p:`<b>${fmt(om[0][1])}</b> de <b>${fmt(osum)}</b> conversas com origem preenchida. A oferta de Promo Contabilidade saiu de zero em junho para <b>104</b> em julho e <b>31</b> em agosto — cresceu sem aparecer no funil do CRM.`});
- const cq=Object.entries(canal).sort((a,b)=>b[1]-a[1])[0];
- if(cq) arr.push({c:'',h:"Um número carrega o atendimento inteiro",
-  p:`<b>${cq[0]}</b> responde por <b>${fmt(cq[1]/ct*100)}%</b> das conversas. Uma queda nesse canal derruba a operação toda — não há redundância.`});
- arr.push({c:'a',h:"Nada é resolvido sem gente",
-  p:`As resoluções medidas em julho foram <b>100% por agente</b>. Zero por bot, zero automáticas. Com <b>${fmt(t)}</b> conversas no período, todo o volume depende de disponibilidade humana.`});
+  p:`Contra <b>${fmt(t)}</b> criadas — <b>${t?(pos/t*100).toFixed(1):0}%</b>.`});
  ins(document.getElementById('fc-ins'),arr);
 }
 
@@ -1073,9 +954,20 @@ function renderGeral(){
  const [de,ate]=F.g;
  const A=pipeAgg(de,ate),T=Object.values(A).reduce((a,o)=>({n:a.n+o.n,open:a.open+o.open,won:a.won+o.won}),{n:0,open:0,won:0});
  const ms=mesesNo(de,ate,MEDIA);
- const spend=ms.reduce((a,k)=>a+MEDIA[k].g+MEDIA[k].m,0), sess=ms.reduce((a,k)=>a+MEDIA[k].s,0);
- const fms=mesesNo(de,ate,FRESH), chats=fms.reduce((a,k)=>a+FRESH[k].t,0);
- const tm=somaMes(FTEMA_M,de,ate), tsum=tm.reduce((a,r)=>a+r[1],0);
+ let spend,sess;
+ if(de>=DIA0){
+  spend=somaD(METAD,de,ate,1)+somaD(GADSD,de,ate,1);
+  sess=somaD(GA4D,de,ate,1);
+ }else{
+  spend=ms.reduce((a,k)=>a+MEDIA[k].g+MEDIA[k].m,0);
+  sess=ms.reduce((a,k)=>a+MEDIA[k].s,0);
+ }
+ const chats=Object.keys(FCDIA).filter(k=>k>=de&&k<=ate).reduce((a,k)=>a+FCDIA[k],0);
+ const somaDiaG=base=>{const o={};
+   Object.keys(base).filter(k=>k>=de&&k<=ate).forEach(k=>
+    Object.entries(base[k]).forEach(([a2,v])=>o[a2]=(o[a2]||0)+v));
+   return Object.entries(o).sort((a2,b2)=>b2[1]-a2[1]);};
+ const tm=somaDiaG(FCTEMA_D), tsum=tm.reduce((a,r)=>a+r[1],0);
  const pos=tm.filter(r=>POSITIVOS.includes(r[0])).reduce((a,r)=>a+r[1],0);
  const desc=tm.filter(r=>DESCARTE.includes(r[0])).reduce((a,r)=>a+r[1],0);
  kpi(document.getElementById('g-kpis'),[
@@ -1084,7 +976,7 @@ function renderGeral(){
   {l:"Conversas",v:chats?fmt(chats):"—",c:'o',s:chats?"Freshchat":"desde jun 2026"},
   {l:"Negócios criados",v:fmt(T.n),s:"três funis"},
   {l:"Ganhos",v:fmt(T.won),c:'g',s:T.n?(T.won/T.n*100).toFixed(2)+"% dos criados":''},
-  {l:"Custo por negócio",v:T.n?fmtU(spend/T.n):"—",c:T.n&&spend/T.n>150?'r':'',s:"mídia ÷ criados"}
+  {l:"Custo por negócio (R$)",v:T.n?fmtU(spend/T.n):"—",c:T.n&&spend/T.n>150?'r':'',s:"reais por negócio criado"}
  ]);
  const steps=[{n:"Investimento em mídia",v:spend,t:fmtU(spend)},{n:"Sessões no site",v:sess,t:fmt(sess)},
   {n:"Conversas no chat",v:chats,t:chats?fmt(chats):"—",c:'o'},
@@ -1101,19 +993,13 @@ function renderGeral(){
  document.getElementById('g-gran').textContent=S.porDia?'por dia':'por mês';
 
  const arr=[];
- const st=(A[8].stage[44]||{}).open+(A[8].stage[45]||{}).open||0;
- arr.push({c:'r',h:T.n?`De cada 100 negócios criados, ${(T.won/T.n*100).toFixed(1)} fecham`:"Sem negócios no período",
-  p:T.n?`<b>${fmt(T.won)}</b> ganhos em <b>${fmt(T.n)}</b> criados. Todo o resto está aberto ou parado — e o funil não tem etapa intermediária registrando nada.`:"Ajuste o período para ver o funil."});
- if(spend&&T.won) arr.push({c:'r',h:`Cada venda custou ${fmtU(spend/T.won)} de mídia`,
-  p:`<b>${fmtU(spend)}</b> investidos para <b>${fmt(T.won)}</b> negócios ganhos, de ticket US$ 650. A conta só fecha aumentando a taxa de conversão do funil, não o budget.`});
- if(chats&&pos) arr.push({c:'a',h:`O gargalo está no atendimento, não na mídia`,
-  p:`<b>${fmt(chats)}</b> conversas entraram e <b>${fmt(desc)}</b> foram encerradas sem avançar. Só <b>${fmt(pos)}</b> viraram reunião ou cliente. Antes de comprar mais tráfego, vale responder o que já chega.`});
- if(st) arr.push({c:'o',h:`${fmt(st)} negócios esperando na porta`,
-  p:`Parados nas duas primeiras etapas do funil brasileiro. É a maior lista de contato pronta que a operação tem hoje, e ninguém a está trabalhando.`});
- arr.push({c:'',h:"Quatro fontes, nenhuma conversa com a outra",
-  p:`Mídia, site, chat e CRM não têm campo em comum. Criar um UTM que atravesse até o Pipedrive é a mudança de maior retorno da lista — sem ela, toda decisão de investimento é por intuição.`});
- arr.push({c:'a',h:"O valor não está no CRM",
-  p:`Apenas <b>29</b> dos 3.724 negócios têm valor preenchido. Enquanto isso não mudar, nenhum relatório consegue mostrar receita, previsão ou retorno real.`});
+ const st=((A[8].stage[44]||{}).open||0)+((A[8].stage[45]||{}).open||0);
+ arr.push({c:'r',h:T.n?`${(T.won/T.n*100).toFixed(1)}% dos negócios criados fecham`:"Sem negócios no período",
+  p:T.n?`<b>${fmt(T.won)}</b> ganhos em <b>${fmt(T.n)}</b> criados${spend&&T.won?`. Cada venda custou <b>${fmtU(spend/T.won)}</b> de mídia.`:'.'}`:"Ajuste o período para ver o funil."});
+ if(st) arr.push({c:'o',h:`${fmt(st)} negócios parados na entrada do funil`,
+  p:`Nas duas primeiras etapas de Abertura de Empresas, que apodrecem em 1 dia. É a maior lista de contato pronta que a operação tem.`});
+ if(chats&&tsum) arr.push({c:'a',h:`${fmt(desc/tsum*100)}% das conversas terminam sem avançar`,
+  p:`<b>${fmt(chats)}</b> conversas no chat e apenas <b>${fmt(pos)}</b> viraram reunião ou cliente.`});
  ins(document.getElementById('g-ins'),arr);
 }
 
@@ -1165,41 +1051,94 @@ ft.addEventListener('click',()=>{const o=ft.getAttribute('aria-expanded')==='tru
 
 
 function renderSemanal(){
- const inic=[
-  {n:"Abertura de Empresa",inv:3011.52,s:354,l:"3 leads · 7 chats",c:'b',p:64.6},
-  {n:"Combo Contabilidade + Abertura",inv:191.57,s:63,l:"0 leads · 6 chats",c:'o',p:4.1},
-  {n:"Holding",inv:913.96,s:10,l:"sem leads",c:'p',p:19.6},
-  {n:"USA",inv:545.71,s:177,l:"sem leads",c:'g',p:11.7}
- ];
- const col={b:'var(--blue)',o:'var(--orange)',p:'var(--purple)',g:'var(--green)'};
- document.getElementById('sm-cards').innerHTML=inic.map(i=>`
-  <div class="card" style="border-top:3px solid ${col[i.c]}">
-   <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px">
-     <h4 style="font-size:14px">${i.n}</h4>
-     <span class="tag ${i.c}">${i.p}% do budget</span></div>
-   <div style="display:flex;gap:22px;flex-wrap:wrap">
-     <div><div class="lbl" style="font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600">Investimento</div>
-       <div class="num" style="font-size:20px;font-weight:700">R$ ${i.inv.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div></div>
-     <div><div class="lbl" style="font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600">Sessões</div>
-       <div class="num" style="font-size:20px;font-weight:700">${i.s}</div></div>
-     <div><div class="lbl" style="font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600">Resultado</div>
-       <div style="font-size:14px;font-weight:600;padding-top:3px">${i.l}</div></div>
-   </div>
-   <div class="btrack" style="margin-top:14px"><div class="bfill" style="width:${i.p}%;background:${col[i.c]}"></div></div>
-  </div>`).join('');
 
- bars(document.getElementById('sm-paginas'),[
-  ["/modelo-de-empresa/ (Calculadora)",190,'b'],["/abrasuaempresa/",111,'b'],
-  ["/sign-up",28,'a'],["/checkout",25,'r']]);
- bars(document.getElementById('sm-tema'),[
-  ["No Response",2,'r'],["Follow-Up Needed",1,'b'],["Initial Questions",1,'b'],
-  ["Unqualified / Irrelevant",1,'a']]);
- bars(document.getElementById('sm-combo'),[
-  ["/promo-relampago_growing-ledgers/ · sessões",63,'o'],["Leads",6,'a'],
-  ["No Response",5,'r'],["Unqualified",1,'a']]);
 }
 
 
+
+const OBJETIVO={
+ "Abertura de Empresa_Calculadora":"Vendas",
+ "Abertura de Empresa_Checkout":"Vendas",
+ "Abertura de Empresa_Remarketing_Checkout":"Vendas",
+ "Promoção: Contabilidade + Abertura":"Cadastros",
+ "Promo Relampago":"Cadastros",
+ "Holding":"Cadastros"};
+const GCONV=[["Lead Google Ads","Cadastro",11],
+             ["Conversation started","Início de conversa",2],
+             ["Iniciar finalização de compra","Início de checkout",2]];
+const INIC=[
+ {n:"Abertura de Empresa",c:'b',meta:["Abertura de Empresa_Calculadora","Abertura de Empresa_Checkout","Abertura de Empresa_Remarketing_Checkout","Abertura 2"],goo:["Abertura de Empresa: geral"],
+  pecas:["Calculadora","Checkout","Remarketing Checkout"],origem:["Abertura de Empresa","Modelo de Abertura"],
+  crm:[["__calc","Modelo de Empresa"],
+       ["Whatsapp enviado - Lead Qualificado 1","Lead Qualificado — WhatsApp 1"],
+       ["Whatsapp enviado - Lead Qualificado 2","Lead Qualificado — WhatsApp 2"],
+       ["__lq_email","Lead Qualificado — E-mail"],
+       ["Whatsapp enviado - Aguardando Checkout 1","Aguardando Checkout — WhatsApp 1"],
+       ["Whatsapp enviado - Aguardando Checkout 2","Aguardando Checkout — WhatsApp 2"],
+       ["__ac_email","Aguardando Checkout — E-mail"],
+       ["Whatsapp proativo - Bem Vindo","Bem-vindo"],
+       ["Whatsapp proativo - Bem Vindo - Lembrete","Bem-vindo — lembrete"],
+       ["whatsapp proativo - envio de recomendação","Envio de recomendação"],
+       ["whatsapp proativo - ok na recomendação","Cliente deu OK na recomendação"],
+       ["whatsapp proativo - não deu ok na recomendação","Não deu OK na recomendação"],
+       ["whatsapp proativo - analise aprovada","Análise aprovada"],
+       ["whatsapp proativo - registro concluído","Registro concluído"],
+       ["whatsapp proativo - docs assinados","Documentos assinados"],
+       ["whatsapp proativo - pesquisa satisfação","Pesquisa de satisfação"],
+       ["Whatsapp proativo - cliente preencheu","Cliente preencheu"]]},
+ {n:"Combo Contabilidade + Abertura",c:'o',meta:["Promoção: Contabilidade + Abertura","Promo Relampago"],goo:[],
+  pecas:["Promo Contabilidade"],origem:["Promo Contabilidade"],
+  crm:[["Whats - Promo Combo","Disparo Promo Combo"]]},
+ {n:"Holding",c:'p',meta:["Holding"],goo:["Holding"],
+  pecas:["Holding"],origem:["Holding"],crm:[]},
+ {n:"USA",c:'g',meta:[],goo:["[USA] Search Bookkeeping South FL"],
+  pecas:[],origem:["Company Incorporation"],crm:[]}
+];
+function panorama(sem){
+ const cm=SEMCAMP[sem.a]||null, cg=GCAMP[sem.a]||null;
+ if(!cm&&!cg) return null;
+ return INIC.map(i=>{
+  let inv=0,conv=0,cli=0;
+  (cm||[]).forEach(r=>{ if(i.meta.includes(r[0])){inv+=r[1];cli+=r[2];conv+=r[4];} });
+  (cg||[]).forEach(r=>{ if(i.goo.includes(r[0])){inv+=r[1];cli+=r[2];conv+=r[4];} });
+  return {...i,inv,conv,cli};
+ });
+}
+function renderPanorama(a,b,br){
+ const pan=panorama(a), panB=b?panorama(b):null;
+ const el=document.getElementById('sm-cards');
+ const cores={b:'var(--blue)',o:'var(--orange)',p:'var(--blue-2)',g:'var(--green)'};
+ if(pan){
+  const tot=pan.reduce((x,i)=>x+i.inv,0);
+  const mapB={}; (panB||[]).forEach(i=>mapB[i.n]=i);
+  el.innerHTML=pan.map(i=>{
+   const p=mapB[i.n], share=tot?i.inv/tot*100:0;
+   const cpc=i.conv?i.inv/i.conv:null;
+   const dl=p?i.conv-p.conv:null;
+   const lb=(t,v,c)=>`<div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600">${t}</div><div class="num" style="font-size:19px;font-weight:700;${c?'color:'+c:''}">${v}</div></div>`;
+   return `<div class="card" style="border-top:3px solid ${cores[i.c]}">
+     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px">
+       <h4 style="font-size:14px">${i.n}</h4>
+       <span class="tag ${i.c}">${share.toFixed(0)}% do budget</span></div>
+     <div style="display:flex;gap:20px;flex-wrap:wrap">
+       ${lb('Investimento',i.inv?br(i.inv):'—')}
+       ${lb('Conversões',fmt(i.conv),i.conv?'var(--green)':'var(--red)')}
+       ${lb('Custo/conv.',cpc?br(cpc):'—')}
+       ${lb('Cliques',fmt(i.cli))}
+     </div>
+     ${p?`<div style="border-top:1px solid var(--line-2);margin-top:11px;padding-top:8px;font-size:11.5px;color:var(--ink-3)">
+       Semana anterior: <b style="color:var(--ink)">${br(p.inv)}</b> · ${fmt(p.conv)} conv.
+       ${dl!==null?`<span class="delta ${dl>0?'up':dl<0?'down':'flat'}" style="margin-left:6px">${dl>0?'+':''}${fmt(dl)} conv.</span>`:''}</div>`:''}
+     <div class="btrack" style="margin-top:12px"><div class="bfill" style="width:${share}%;background:${cores[i.c]}"></div></div>
+   </div>`;}).join('');
+  const somaEl=document.getElementById('sm-soma');
+  if(somaEl) somaEl.textContent=`Soma das quatro iniciativas: ${br(tot)} · confere com o investimento total do topo.`;
+ }else{
+  el.innerHTML='<p class="note-line">Quebra por iniciativa disponível a partir de 06/08. Os totais da semana no topo seguem válidos.</p>';
+  const somaEl=document.getElementById('sm-soma'); if(somaEl) somaEl.textContent='';
+ }
+
+}
 function renderSemanaComp(){
  const idx=+document.getElementById('sm-sel').value;
  const a=SEMANAS[idx], b=SEMANAS[idx-1]||null;
@@ -1207,149 +1146,167 @@ function renderSemanaComp(){
  const dd=(c,p,inv)=>{if(!p)return '<td>—</td>';const v=(c-p)/p*100;const good=inv?v<0:v>0;
   return `<td><span class="delta ${Math.abs(v)<1?'flat':(good?'up':'down')}">${v>0?'+':''}${v.toFixed(0)}%</span></td>`;};
  const per=s=>`${dlbl(s.a)} – ${dlbl(s.b)}`;
+ const cores={b:'var(--blue)',o:'var(--orange)',p:'var(--blue-2)',g:'var(--green)'};
 
  document.getElementById('sm-per').textContent=per(a)+(a.parcial?` · parcial, até ${dlbl(a.ultimo)}`:'');
  document.getElementById('sm-per2').textContent=b?per(b):'sem semana anterior';
- const p3=document.getElementById('sm-per3'); if(p3)p3.textContent=per(a)+(b?' contra '+per(b):'');
+ document.getElementById('sm-per3').textContent=per(a)+(b?' contra '+per(b):'');
 
  const cplA=a.leads?a.spend/a.leads:null, cplB=b&&b.leads?b.spend/b.leads:null;
  document.getElementById('sm-kpis').innerHTML=[
   {l:"Investimento total",v:br(a.spend+a.gspend),s:`Meta ${br(a.spend)} · Google ${br(a.gspend)}`},
-  {l:"Leads no Meta",v:fmt(a.leads),c:a.leads?'g':'r',s:b?`${fmt(b.leads)} na semana anterior`:''},
-  {l:"Custo por lead",v:cplA?br(cplA):"—",c:cplA&&cplA<50?'g':cplA&&cplA>200?'r':'o',
-   s:cplB?`${br(cplB)} antes`:''},
-  {l:"Sessões no site",v:fmt(a.sess),s:b?`${fmt(b.sess)} antes`:''},
-  {l:"Conversões Google",v:fmt(a.gconv),c:a.gconv?'':'r',s:a.gconv?br(a.gspend/a.gconv)+" por conversão":'sem conversão'}
+  {l:'Conversões Meta<span class="q" title="Evento Lead do pixel no site — 100% do pixel, zero de formulário nativo. As campanhas de Abertura de Empresa são otimizadas para Vendas; Combo e Holding, para Cadastros.">?</span>',
+   v:fmt(a.leads),c:a.leads?'g':'r',s:`evento Lead do pixel${b?` · ${fmt(b.leads)} antes`:''}`},
+  {l:'Custo por conversão<span class="q" title="Investimento Meta da semana dividido pelas conversões do pixel.">?</span>',
+   v:cplA?br(cplA):"—",c:cplA&&cplA<50?'g':cplA&&cplA>200?'r':'o',s:`Meta${cplB?` · ${br(cplB)} antes`:''}`},
+  {l:'Conversões Google<span class="q" title="Soma de três ações: Lead Google Ads (cadastro), Conversation started (início de conversa) e Iniciar finalização de compra. Não é venda concluída.">?</span>',
+   v:fmt(a.gconv),c:a.gconv?'':'r',s:a.gconv?`${br(a.gspend/a.gconv)} cada`:'sem conversão'},
+  {l:"Conversas no chat",v:fmt(Object.keys(FCDIA).filter(k=>k>=a.a&&k<=a.b).reduce((x,k)=>x+FCDIA[k],0)),
+   c:'o',s:"Freshchat, canais KwikLedgers"}
  ].map(i=>`<div class="kpi ${i.c||''}"><div class="lbl">${i.l}</div><div class="val">${i.v}</div>${i.s?`<div class="sub">${i.s}</div>`:''}</div>`).join('');
 
- document.getElementById('sm-comp').innerHTML=[
-  ["Investimento total",br(a.spend+a.gspend),b?br(b.spend+b.gspend):'—',a.spend+a.gspend,b?b.spend+b.gspend:0,true],
-  ["— Meta Ads",br(a.spend),b?br(b.spend):'—',a.spend,b?b.spend:0,true],
-  ["— Google Ads",br(a.gspend),b?br(b.gspend):'—',a.gspend,b?b.gspend:0,true],
-  ["Cliques Meta",fmt(a.clicks),b?fmt(b.clicks):'—',a.clicks,b?b.clicks:0,false],
-  ["Cliques Google",fmt(a.gclicks),b?fmt(b.gclicks):'—',a.gclicks,b?b.gclicks:0,false],
-  ["Conversões Google",fmt(a.gconv),b?fmt(b.gconv):'—',a.gconv,b?b.gconv:0,false],
-  ["Custo por conversão Google",a.gconv?br(a.gspend/a.gconv):'—',b&&b.gconv?br(b.gspend/b.gconv):'—',
-   a.gconv?a.gspend/a.gconv:0,b&&b.gconv?b.gspend/b.gconv:0,true],
-  ["Leads no Meta",fmt(a.leads),b?fmt(b.leads):'—',a.leads,b?b.leads:0,false],
-  ["Custo por lead",cplA?br(cplA):'—',cplB?br(cplB):'—',cplA||0,cplB||0,true],
-  ["Sessões no site",fmt(a.sess),b?fmt(b.sess):'—',a.sess,b?b.sess:0,false],
-  ["Usuários únicos",fmt(a.users),b?fmt(b.users):'—',a.users,b?b.users:0,false]
- ].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>${dd(r[3],r[4],r[5])}</tr>`).join('');
+ renderPanorama(a,b,br);
 
- // gráfico de todas as semanas
+ // ---------- gráficos globais ----------
  cols(document.getElementById('sm-cols'),document.getElementById('sm-cols-lbl'),
   SEMANAS.map((s,k)=>({v:s.leads,l:dlbl(s.a),t:fmt(s.leads),o:k===idx})));
  cols(document.getElementById('sm-cols2'),document.getElementById('sm-cols2-lbl'),
   SEMANAS.map((s,k)=>({v:s.gspend+s.spend,l:dlbl(s.a),t:fmt((s.gspend+s.spend)/1000)+"k",o:k===idx})));
 
- // campanhas
- const gA=GCAMP[a.a], gB=b?GCAMP[b.a]:null;
- const elg=document.getElementById('sm-gcamp');
- if(gA){
-  const mg={}; (gB||[]).forEach(r=>mg[r[0]]=r);
-  elg.innerHTML=gA.map(r=>{const p=mg[r[0]];
-   const cc=r[4]?r[1]/r[4]:null, pc=p&&p[4]?p[1]/p[4]:null;
-   const ctr=r[3]?r[2]/r[3]*100:0;
-   return `<tr><td>${r[0]}</td><td>${br(r[1])}</td><td>${fmt(r[2])}</td><td>${ctr.toFixed(2)}%</td>
-    <td class="${r[4]?'':'hi'}">${fmt(r[4])}</td>
-    <td class="${cc&&cc>200?'hi':''}">${cc?br(cc):'—'}</td>${dd(r[1],p?p[1]:0,true)}</tr>`;}).join('');
- }else elg.innerHTML='<tr><td colspan="7">Quebra por campanha do Google disponível a partir de 06/08.</td></tr>';
+ // ---------- comparativo ----------
+ document.getElementById('sm-comp').innerHTML=[
+  ["Investimento total",br(a.spend+a.gspend),b?br(b.spend+b.gspend):'—',a.spend+a.gspend,b?b.spend+b.gspend:0,true],
+  ["— Meta Ads",br(a.spend),b?br(b.spend):'—',a.spend,b?b.spend:0,true],
+  ["— Google Ads",br(a.gspend),b?br(b.gspend):'—',a.gspend,b?b.gspend:0,true],
+  ["Conversões Meta",fmt(a.leads),b?fmt(b.leads):'—',a.leads,b?b.leads:0,false],
+  ["Custo por conversão Meta",cplA?br(cplA):'—',cplB?br(cplB):'—',cplA||0,cplB||0,true],
+  ["Conversões Google",fmt(a.gconv),b?fmt(b.gconv):'—',a.gconv,b?b.gconv:0,false],
+  ["Sessões no site",fmt(a.sess),b?fmt(b.sess):'—',a.sess,b?b.sess:0,false]
+ ].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>${dd(r[3],r[4],r[5])}</tr>`).join('');
 
- // peças
- const pA=PECAS[a.a], pB=b?PECAS[b.a]:null;
- const elp=document.getElementById('sm-pecas');
- if(pA){
-  const mp={}; (pB||[]).forEach(r=>mp[r[0]+"|"+r[1]]=r);
-  const maxSp=Math.max(...pA.map(r=>r[2]));
-  const gal=document.getElementById('sm-galeria');
-  const chave=r=>r[0]+"|"+r[1];
-  const vistos=new Set(pA.map(chave));
-  const sumiram=(pB||[]).filter(r=>!vistos.has(chave(r)));
-  const cardPeca=(r,prev,fora)=>{
-   const m=PECA_IMG[r[0]]||{}, im=m.img?IMGS[m.img]:null;
-   const cpl=r[5]?r[2]/r[5]:null, lpv=r[3]?r[6]/r[3]*100:0;
-   const cor=r[5]?'var(--green)':'var(--red)';
-   const lab=(t,v,c)=>`<div><div style="font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600">${t}</div><div class="num" style="font-size:20px;font-weight:700;${c?'color:'+c:''}">${v}</div></div>`;
-   let comp;
-   if(fora){
-    comp=`<div style="background:var(--red-soft);color:var(--red);font-size:11.5px;padding:7px 9px;border-radius:8px;margin-top:11px">
-      <b>Saiu do ar.</b> Na semana anterior: ${fmt(r[5])} leads com ${br(r[2])}.</div>`;
-   }else if(prev){
-    const dl=r[5]-prev[5], ds=r[2]-prev[2];
-    const pcpl=prev[5]?prev[2]/prev[5]:null;
-    const sinal=dl>0?'up':dl<0?'down':'flat';
-    comp=`<div style="border-top:1px solid var(--line-2);margin-top:11px;padding-top:9px;font-size:11.5px;color:var(--ink-3)">
-      Semana anterior: <b style="color:var(--ink)">${fmt(prev[5])}</b> leads · ${br(prev[2])}${pcpl?` · ${br(pcpl)}/lead`:''}
-      <span class="delta ${sinal}" style="margin-left:6px">${dl>0?'+':''}${fmt(dl)} leads</span>
-      <span class="delta ${ds<0?'up':'down'}" style="margin-left:4px">${ds>0?'+':''}${br(ds)}</span></div>`;
-   }else{
-    comp=`<div style="background:var(--green-soft);color:var(--green);font-size:11.5px;padding:7px 9px;border-radius:8px;margin-top:11px">
-      <b>Peça nova.</b> Não estava no ar na semana anterior.</div>`;
-   }
-   return `<div class="card" style="padding:0;overflow:hidden;${fora?'opacity:.72':''}">
-    <div style="aspect-ratio:1;background:var(--line-2);display:flex;align-items:center;justify-content:center;${fora?'filter:grayscale(1)':''}">
-     ${im?`<img src="${im}" alt="${r[0]}" style="width:100%;height:100%;object-fit:cover">`
-         :`<span style="font-size:11.5px;color:var(--ink-3);text-align:center;padding:18px;line-height:1.4">${m.nota||'sem imagem'}</span>`}</div>
-    <div style="padding:13px 14px">
-     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-      <b style="font-size:13px">${r[0]}</b>
-      ${m.ok===false?'<span class="tag" style="background:var(--line-2);color:var(--ink-3)">?</span>':''}</div>
-     <div style="font-size:11px;color:var(--ink-3);margin-bottom:10px">${r[1]}</div>
-     <div style="display:flex;gap:15px;flex-wrap:wrap">
-      ${lab('Leads',fmt(r[5]),cor)}${lab('R$/lead',cpl?br(cpl).replace('R$ ',''):'—')}${lab('Investido',br(r[2]).replace('R$ ',''))}
-     </div>
-     <div class="btrack" style="height:6px;margin-top:12px"><div class="bfill" style="width:${lpv.toFixed(0)}%;background:${lpv<50?'var(--red)':lpv>80?'var(--green)':'var(--amber)'}"></div></div>
-     <div style="font-size:10.5px;color:var(--ink-3);margin-top:5px">${lpv.toFixed(0)}% dos cliques chegaram na página</div>
-     ${comp}
-    </div></div>`;};
-  gal.innerHTML=pA.map(r=>cardPeca(r,mp[chave(r)],false)).join('')
-   + sumiram.map(r=>cardPeca(r,null,true)).join('');
+ const crmSem=s=>{const o={};
+   Object.keys(CRMDIA).filter(k=>k>=s.a&&k<=s.b).forEach(k=>
+     Object.entries(CRMDIA[k]).forEach(([x,v])=>o[x]=(o[x]||0)+v));
+   return o;};
+ const crA=crmSem(a), crB=b?crmSem(b):{};
 
-  // resumo do movimento entre semanas
-  const novas=pA.filter(r=>!mp[chave(r)]);
-  const resumo=document.getElementById('sm-mov');
-  if(resumo){
-   const lA=pA.reduce((a,r)=>a+r[5],0), lB=(pB||[]).reduce((a,r)=>a+r[5],0);
-   resumo.innerHTML=`
-    <div class="kpi g"><div class="lbl">Peças no ar</div><div class="val">${pA.length}</div>
-      <div class="sub">${pB?`${pB.length} na semana anterior`:'sem comparação'}</div></div>
-    <div class="kpi"><div class="lbl">Entraram</div><div class="val">${novas.length}</div>
-      <div class="sub">${novas.length?novas.map(r=>r[0]).join(', '):'nenhuma peça nova'}</div></div>
-    <div class="kpi ${sumiram.length?'r':''}"><div class="lbl">Saíram do ar</div><div class="val">${sumiram.length}</div>
-      <div class="sub">${sumiram.length?sumiram.map(r=>r[0]).join(', '):'nenhuma pausada'}</div></div>
-    <div class="kpi ${lA>=lB?'g':'r'}"><div class="lbl">Leads das peças</div><div class="val">${fmt(lA)}</div>
-      <div class="sub">${pB?`${fmt(lB)} na semana anterior`:''}</div></div>`;
-  }
-  elp.innerHTML=pA.map(r=>{
-   const prev=mp[r[0]+"|"+r[1]];
-   const cpl=r[5]?r[2]/r[5]:null;
-   const lpv=r[3]?r[6]/r[3]*100:0;
-   const ctr=r[4]?r[3]/r[4]*100:0;
-   return `<tr><td><b>${r[0]}</b><br><span style="font-size:11px;color:var(--ink-3)">${r[1]}</span></td>
-    <td>${br(r[2])}<div class="btrack" style="height:5px;margin-top:4px"><div class="bfill" style="width:${(r[2]/maxSp*100).toFixed(0)}%;background:${r[5]?'var(--green)':'var(--line)'}"></div></div></td>
-    <td>${fmt(r[3])}</td><td>${ctr.toFixed(2)}%</td>
-    <td class="${lpv<50?'hi':lpv>80?'lo':''}">${lpv.toFixed(0)}%</td>
-    <td class="${r[5]?'lo':'hi'}">${fmt(r[5])}</td>
-    <td class="${cpl&&cpl<20?'lo':cpl&&cpl>150?'hi':''}">${cpl?br(cpl):'—'}</td>
-    ${dd(r[5],prev?prev[5]:0,false)}</tr>`;}).join('');
- }else{elp.innerHTML='<tr><td colspan="8">Performance por peça disponível a partir de 13/08.</td></tr>';
-  document.getElementById('sm-galeria').innerHTML='<p class="note-line">Peças disponíveis a partir da semana de 13/08.</p>';}
+ // ---------- uma seção por frente ----------
+ const cmA=SEMCAMP[a.a]||[], cgA=GCAMP[a.a]||[], fnA=FUNIL[a.a]||[], pcA=PECAS[a.a]||[];
+ const cmB=SEMCAMP[b?b.a:'']||[], cgB=GCAMP[b?b.a:'']||[];
+ const somaSem=(base,s)=>{const o={};
+   Object.keys(base).filter(k=>k>=s.a&&k<=s.b).forEach(k=>
+     Object.entries(base[k]).forEach(([x,v])=>o[x]=(o[x]||0)+v));
+   return o;};
+ const origA=somaSem(FCORIG_D,a), temaA=somaSem(FCTEMA_D,a);
 
- const cA=SEMCAMP[a.a], cB=b?SEMCAMP[b.a]:null;
- const el=document.getElementById('sm-campcomp');
- if(cA){
-  const mapB={}; (cB||[]).forEach(r=>mapB[r[0]]=r);
-  el.innerHTML=cA.map(r=>{const p=mapB[r[0]];
-   const cl=r[4]?r[1]/r[4]:null, pl=p&&p[4]?p[1]/p[4]:null;
-   return `<tr><td>${r[0]}</td><td>${br(r[1])}</td><td>${fmt(r[2])}</td>
-    <td class="${r[4]?'lo':'hi'}">${fmt(r[4])}</td>
-    <td class="${cl&&cl<50?'lo':cl&&cl>200?'hi':''}">${cl?br(cl):'—'}</td>
-    <td>${p?fmt(p[4]):'—'}</td>${dd(r[4],p?p[4]:0,false)}</tr>`;}).join('');
- }else{
-  el.innerHTML='<tr><td colspan="7">Quebra por campanha disponível a partir de 06/08. Os totais da semana acima seguem válidos.</td></tr>';
- }
+ document.getElementById('sm-frentes').innerHTML=INIC.map(i=>{
+  const lin=[];
+  cmA.forEach(r=>{ if(i.meta.includes(r[0])) lin.push(['Meta',r[0],r[1],r[2],r[4]]); });
+  cgA.forEach(r=>{ if(i.goo.includes(r[0])) lin.push(['Google',r[0],r[1],r[2],r[4]]); });
+  const linB=[];
+  cmB.forEach(r=>{ if(i.meta.includes(r[0])) linB.push(r[1]); });
+  cgB.forEach(r=>{ if(i.goo.includes(r[0])) linB.push(r[1]); });
+  const inv=lin.reduce((x,r)=>x+r[2],0), conv=lin.reduce((x,r)=>x+r[4],0);
+  const invB=linB.reduce((x,v)=>x+v,0);
+
+  const pecas=pcA.filter(r=>i.pecas.includes(r[1]));
+  const funil=fnA.filter(r=>i.meta.includes(r[0]));
+  const convs=Object.entries(origA).filter(([k])=>i.origem.includes(k));
+  const convTot=convs.reduce((x,r)=>x+r[1],0);
+
+  const tabela=lin.length?`<div class="card">
+    <h4 style="font-size:13px;margin-bottom:13px">Mídia paga</h4>
+    <div class="scroll"><table>
+     <thead><tr><th>Campanha</th><th>Canal</th><th>Otimizada para</th><th>Invest.</th><th>Cliques</th><th>Conv.</th><th>Custo/conv.</th></tr></thead>
+     <tbody>${lin.map(r=>{const c=r[4]?r[2]/r[4]:null;
+      const ot=r[0]==='Meta'?(OBJETIVO[r[1]]||'—'):'Cadastro, conversa e checkout';
+      return `<tr><td>${r[1]}</td><td><span class="tag ${r[0]==='Meta'?'b':'o'}">${r[0]}</span></td>
+       <td style="font-size:12px">${ot}</td>
+       <td>${br(r[2])}</td><td>${fmt(r[3])}</td><td class="${r[4]?'lo':'hi'}">${fmt(r[4])}</td>
+       <td class="${c&&c>200?'hi':c&&c<50?'lo':''}">${c?br(c):'—'}</td></tr>`;}).join('')}
+      <tr class="tot"><td>Total</td><td></td><td></td><td>${br(inv)}</td>
+       <td>${fmt(lin.reduce((x,r)=>x+r[3],0))}</td><td>${fmt(conv)}</td>
+       <td>${conv?br(inv/conv):'—'}</td></tr></tbody></table></div>
+    ${invB?`<p class="note-line">Semana anterior: ${br(invB)} investidos.</p>`:''}
+   </div>`:'';
+
+  const cardFunil=funil.length?`<div class="card">
+    <h4 style="font-size:13px;margin-bottom:13px">Do clique ao checkout</h4>
+    <div class="scroll"><table>
+     <thead><tr><th>Campanha</th><th>Cliques</th><th>Chegou</th><th>Conv.</th><th>Checkouts</th><th>Clique→página</th></tr></thead>
+     <tbody>${funil.map(r=>{const cp=r[2]?r[3]/r[2]*100:0;
+      return `<tr><td>${r[0]}</td><td>${fmt(r[2])}</td><td>${fmt(r[3])}</td>
+       <td class="${r[4]?'lo':'hi'}">${fmt(r[4])}</td><td>${fmt(r[5])}</td>
+       <td class="${cp<50?'hi':cp>80?'lo':''}">${cp.toFixed(0)}%</td></tr>`;}).join('')}
+     </tbody></table></div></div>`:'';
+
+  const crmLin=(i.crm||[]).map(f=>[f[1],crA[f[0]]||0,crB[f[0]]||0,f[0]])
+    .filter(r=>r[1]>0||r[3].endsWith('_email'));
+  const crmTot=crmLin.reduce((x,r)=>x+r[1],0);
+  const cardCrm=crmLin.length?`<div class="card">
+    <h4 style="font-size:13px;margin-bottom:5px">CRM — régua de relacionamento</h4>
+    <p class="note-line" style="margin:0 0 12px"><b>${fmt(crmTot)}</b> disparos registrados na semana</p>
+    <div class="scroll"><table>
+     <thead><tr><th>Fase</th><th>Canal</th><th>Enviados</th><th>Aberturas</th><th>Cliques</th></tr></thead>
+     <tbody>${crmLin.map(r=>{const eEmail=r[3].endsWith('_email');
+      return `<tr><td>${r[0]}</td>
+      <td><span class="tag ${eEmail?'o':'b'}">${eEmail?'E-mail':'WhatsApp'}</span></td>
+      <td class="${r[1]?'':'hi'}">${eEmail?'—':fmt(r[1])}</td>
+      <td>${eEmail?'—':'<span style="color:var(--ink-3)">n/a</span>'}</td>
+      <td>${eEmail?'—':'<span style="color:var(--ink-3)">n/a</span>'}</td></tr>`;}).join('')}
+      <tr class="tot"><td>Total</td><td></td><td>${fmt(crmTot)}</td><td></td><td></td></tr></tbody></table></div>
+</div>`:'';
+
+  if(!lin.length&&!convTot&&!crmLin.length) return `<div class="sec frente ${i.c==='b'?'':i.c}" style="opacity:.65">
+    <h2>${i.n}</h2><p>sem atividade nesta semana</p></div>`;
+
+  const conversas=FCLISTA.filter(r=>r[0]>=a.a&&r[0]<=a.b&&i.origem.includes(r[3]));
+  const STATUS={R:['Resolvida','g'],A:['Em atendimento','a'],N:['Nova, sem atendimento','r'],B:['Assumida pelo bot','b'],'?':['—','b']};
+  const porStatus={}; conversas.forEach(r=>porStatus[r[1]]=(porStatus[r[1]]||0)+1);
+  const porTema={}; conversas.forEach(r=>{if(r[2])porTema[r[2]]=(porTema[r[2]]||0)+1;});
+  const cardConv=conversas.length?`<div class="card">
+    <h4 style="font-size:13px;margin-bottom:5px">Atendimento no chat</h4>
+    <p class="note-line" style="margin:0 0 12px"><b>${fmt(conversas.length)}</b> conversas com origem ${convs.map(c=>c[0]).join(' ou ')}${(function(){
+      const cls=conversas.filter(r=>r[2]).length;
+      return cls<conversas.length?` · <b>${fmt(cls)}</b> com motivo preenchido`:'';})()}</p>
+    <div class="scroll"><table>
+     <thead><tr><th>Motivo de encerramento</th><th>Conversas</th><th>Share</th></tr></thead>
+     <tbody>${Object.entries(porTema).sort((x,y)=>y[1]-x[1]).map(([t,v])=>
+       `<tr><td>${t}</td><td class="${['No Response','Unqualified / Irrelevant Leads','Not Interested / Declined'].includes(t)?'hi':['Meeting Scheduled','Converted Clients','Partner Referrals'].includes(t)?'lo':''}">${fmt(v)}</td>
+        <td>${fmt(v/conversas.length*100)}%</td></tr>`).join('')||'<tr><td colspan="3">Nenhuma conversa classificada.</td></tr>'}
+     ${(function(){const sc=conversas.length-conversas.filter(r=>r[2]).length;
+       return sc?`<tr><td style="color:var(--ink-3)">Sem motivo preenchido</td><td>${fmt(sc)}</td><td>${fmt(sc/conversas.length*100)}%</td></tr>`:'';})()}
+     <tr class="tot"><td>Total da frente</td><td>${fmt(conversas.length)}</td><td>100%</td></tr>
+     </tbody></table></div>
+    <p class="note-line" style="margin-top:12px"><b>Status atual:</b> ${Object.entries(porStatus).sort((x,y)=>y[1]-x[1]).map(([s,v])=>
+      `<span class="tag ${STATUS[s][1]}" style="margin-right:5px">${STATUS[s][0]}: ${v}</span>`).join('')}</p>
+    <p class="note-line" style="margin-top:8px">Este quadro conta apenas conversas com esta origem. O total da semana, somando todas as origens e as sem origem preenchida, aparece no indicador "Conversas no chat" no topo da aba e na aba Freshchat.</p>
+   </div>`:'';
+
+  const cardPecas=pecas.length?`<div class="card">
+    <h4 style="font-size:13px;margin-bottom:13px">Peças no ar</h4>
+    <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(132px,1fr))">${pecas.map(r=>{
+     const m=PECA_IMG[r[0]]||{}, im=m.img?IMGS[m.img]:null;
+     const cpl=r[5]?r[2]/r[5]:null;
+     return `<div style="border:1px solid var(--line);border-radius:9px;overflow:hidden">
+      <div style="aspect-ratio:1;background:var(--line-2)">${im?`<img src="${im}" alt="${r[0]}" style="width:100%;height:100%;object-fit:cover">`:`<div style="display:flex;height:100%;align-items:center;justify-content:center;font-size:9.5px;color:var(--ink-3);text-align:center;padding:7px;line-height:1.3">${m.nota||'sem imagem'}</div>`}</div>
+      <div style="padding:7px 8px">
+       <div style="font-size:10.5px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${r[0]}">${r[0]}</div>
+       <div class="num" style="font-size:14px;font-weight:700;color:${r[5]?'var(--green)':'var(--red)'};margin-top:2px">${fmt(r[5])} conv.</div>
+       <div style="font-size:9.5px;color:var(--ink-3);line-height:1.3">${br(r[2]).replace('R$ ','R$')}${cpl?`<br>${br(cpl).replace('R$ ','R$')}/conv.`:''}</div>
+      </div></div>`;}).join('')}</div></div>`:'';
+
+  return `<div class="sec frente ${i.c==='b'?'':i.c}">
+    <h2>${i.n}</h2>
+    <p>${br(inv)} investidos · ${fmt(conv)} conversões${convTot?` · ${fmt(convTot)} conversas no chat`:''}${crmTot?` · ${fmt(crmTot)} disparos de CRM`:''}</p></div>
+   <div class="grid2">${tabela}${cardFunil}</div>
+   ${cardPecas?`<div style="margin-top:14px">${cardPecas}</div>`:''}
+   ${cardCrm||cardConv?`<div class="grid2" style="margin-top:14px">${cardCrm}${cardConv}</div>`:''}`;
+ }).join('');
+
+
 }
+
 const selS=document.getElementById('sm-sel');
 selS.innerHTML=SEMANAS.map((s,i)=>`<option value="${i}">${dlbl(s.a)} – ${dlbl(s.b)}${s.parcial?' (parcial)':''}</option>`).join('');
 selS.value=SEMANAS.length-1;
