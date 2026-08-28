@@ -363,9 +363,7 @@ footer p b{color:var(--ink-2)}
     <tbody id="md-camp"></tbody>
   </table></div></div>
 
-  <div class="pending">
-    <b>Rodízio de conectores.</b> O plano Basic do Windsor.ai comporta duas fontes por vez, então Meta, Google e GA4 foram puxados em turnos. Os três estão gravados dia a dia: Meta e GA4 de 01/06 a 25/08, Google de 04/06 a 25/08. Para atualizar daqui em diante é preciso repetir o rodízio ou subir de plano.
-  </div>
+
 
   <div class="sec"><h2>Eficiência por plataforma</h2></div>
   <div class="grid2">
@@ -976,14 +974,14 @@ function renderGeral(){
   {l:"Mídia paga",v:fmtU(spend),s:"Google + Meta"},
   {l:"Sessões",v:fmt(sess),s:"GA4"},
   {l:"Conversas",v:chats?fmt(chats):"—",c:'o',s:chats?"Freshchat":"desde jun 2026"},
-  {l:"Negócios criados",v:fmt(T.n),s:"três funis"},
+  {l:"Leads",v:fmt(T.n),s:"criados nos três funis"},
   {l:"Ganhos",v:fmt(T.won),c:'g',s:T.n?(T.won/T.n*100).toFixed(2)+"% dos criados":''},
-  {l:"Custo por negócio (R$)",v:T.n?fmtU(spend/T.n):"—",c:T.n&&spend/T.n>150?'r':'',s:"reais por negócio criado"}
+  {l:"Custo por lead (R$)",v:T.n?fmtU(spend/T.n):"—",c:T.n&&spend/T.n>150?'r':'',s:"mídia ÷ leads criados"}
  ]);
  const steps=[{n:"Investimento em mídia",v:spend,t:fmtU(spend)},{n:"Sessões no site",v:sess,t:fmt(sess)},
   {n:"Conversas no chat",v:chats,t:chats?fmt(chats):"—",c:'o'},
   {n:"Reuniões e conversões no chat",v:pos,t:fmt(pos),c:'g'},
-  {n:"Negócios criados no CRM",v:T.n,t:fmt(T.n)},{n:"Ganhos",v:T.won,t:fmt(T.won),c:'g'}];
+  {n:"Leads criados no CRM",v:T.n,t:fmt(T.n)},{n:"Ganhos",v:T.won,t:fmt(T.won),c:'g'}];
  const mx=Math.max(...steps.map(s=>s.v),1);
  document.getElementById('g-journey').innerHTML=steps.map((s,i)=>{
   const prev=i?steps[i-1].v:null;
@@ -1172,15 +1170,15 @@ function renderSemanaComp(){
  const ccA=ckA?a.spend/ckA:null, ccB=ckB?b.spend/ckB:null;
  document.getElementById('sm-kpis').innerHTML=[
   {l:"Investimento total",v:br(a.spend+a.gspend),s:`Meta ${br(a.spend)} · Google ${br(a.gspend)}`},
-  {l:'Checkouts iniciados<span class="q" title="Evento InitiateCheckout do pixel no site. É o equivalente ao lead no Pipedrive.">?</span>',
+  {l:'Cliques — direcionando para checkout<span class="q" title="Evento InitiateCheckout do pixel no site. É o equivalente ao lead no Pipedrive.">?</span>',
    v:ckA!==null?fmt(ckA):"—",c:ckA?'g':'r',
    s:ckA!==null?`${ccA?br(ccA)+' cada':'sem custo apurado'}${ckB!==null?` · ${fmt(ckB)} antes`:''}`:'sem dado nesta semana'},
-  {l:'Contatos no site<span class="q" title="Evento Website contacts do Meta: clique no WhatsApp a partir do site.">?</span>',
+  {l:'Cliques — direcionando para WhatsApp<span class="q" title="Evento Website contacts do Meta: clique no WhatsApp a partir do site.">?</span>',
    v:ctA!==null?fmt(ctA):"—",c:ctA?'g':'',
    s:ctA!==null?`clique no WhatsApp${ctB!==null?` · ${fmt(ctB)} antes`:''}`:'sem dado nesta semana'},
   {l:'Conversões totais<span class="q" title="Soma de checkouts iniciados e contatos no site.">?</span>',
    v:(ckA!==null||ctA!==null)?fmt((ckA||0)+(ctA||0)):"—",c:'o',
-   s:(ckA!==null&&ctA!==null)?`${fmt(ckA)} checkouts + ${fmt(ctA)} contatos`:''},
+   s:(ckA!==null&&ctA!==null)?`${fmt(ckA)} para checkout + ${fmt(ctA)} para WhatsApp`:''},
   {l:'Conversões Google<span class="q" title="Soma de três ações: Lead Google Ads (cadastro), Conversation started (início de conversa) e Iniciar finalização de compra. Não é venda concluída.">?</span>',
    v:fmt(a.gconv),c:a.gconv?'':'r',s:a.gconv?`${br(a.gspend/a.gconv)} cada`:'sem conversão'},
   {l:"Conversas no chat",v:fmt(Object.keys(FCDIA).filter(k=>k>=a.a&&k<=a.b).reduce((x,k)=>x+FCDIA[k],0)),
@@ -1200,9 +1198,9 @@ function renderSemanaComp(){
   ["Investimento total",br(a.spend+a.gspend),b?br(b.spend+b.gspend):'—',a.spend+a.gspend,b?b.spend+b.gspend:0,true],
   ["— Meta Ads",br(a.spend),b?br(b.spend):'—',a.spend,b?b.spend:0,true],
   ["— Google Ads",br(a.gspend),b?br(b.gspend):'—',a.gspend,b?b.gspend:0,true],
-  ["Checkouts iniciados (Meta)",ckA!==null?fmt(ckA):'—',ckB!==null?fmt(ckB):'—',ckA||0,ckB||0,false],
-  ["Custo por checkout",ccA?br(ccA):'—',ccB?br(ccB):'—',ccA||0,ccB||0,true],
-  ["Contatos no site (WhatsApp)",ctA!==null?fmt(ctA):'—',ctB!==null?fmt(ctB):'—',ctA||0,ctB||0,false],
+  ["Cliques — direcionando para checkout",ckA!==null?fmt(ckA):'—',ckB!==null?fmt(ckB):'—',ckA||0,ckB||0,false],
+  ["Custo por clique para checkout",ccA?br(ccA):'—',ccB?br(ccB):'—',ccA||0,ccB||0,true],
+  ["Cliques — direcionando para WhatsApp",ctA!==null?fmt(ctA):'—',ctB!==null?fmt(ctB):'—',ctA||0,ctB||0,false],
   ["Conversões totais",fmt((ckA||0)+(ctA||0)),b?fmt((ckB||0)+(ctB||0)):'—',(ckA||0)+(ctA||0),(ckB||0)+(ctB||0),false],
   ["Evento Lead do pixel",fmt(a.leads),b?fmt(b.leads):'—',a.leads,b?b.leads:0,false],
   ["Conversões Google",fmt(a.gconv),b?fmt(b.gconv):'—',a.gconv,b?b.gconv:0,false],
